@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<!-- Defense in depth. The app builds HTML with innerHTML, so 'unsafe-inline'
+     is unavoidable for script/style, but this still pins where images, fonts,
+     and network calls may come from, and kills <base> and <object> injection.
+     frame-ancestors cannot be set from a meta tag; if clickjacking matters,
+     serve the site behind something that can send real headers. -->
+<meta http-equiv="Content-Security-Policy" content="
+  default-src 'none';
+  script-src 'self' 'unsafe-inline';
+  style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+  font-src https://fonts.gstatic.com;
+  img-src 'self' data: https://drive.google.com https://lh3.googleusercontent.com;
+  connect-src 'self' https://sheets.googleapis.com https://docs.google.com https://script.google.com https://script.googleusercontent.com;
+  base-uri 'none';
+  form-action 'none'">
+<title> South Carolina State University National Alumni Association Greenville Chapter</title>
+<link rel="icon" type="image/jpeg" href="scsgacac_logo.jpg">
+<link rel="apple-touch-icon" href="scsgacac_logo.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Archivo:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --garnet:#7A1220; --garnet-deep:#570C16;
+  --navy:#14213D; --paper:#F5F4F1; --plate:#fff;
+  --ink:#1E1B1B; --ink-soft:#5B5551; --line:#DBD7D0; --rule:3px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.55 Archivo,system-ui,sans-serif}
+h1,h2,h3{font-family:Newsreader,Georgia,serif;font-weight:500;margin:0;line-height:1.15}
+a{color:var(--garnet)}
+button{font:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--navy);outline-offset:2px}
+/* Navy-on-navy is invisible. Controls that sit on a dark fill get a white ring
+   drawn inside their own box instead. */
+.spine-all:focus-visible,.print-btn:focus-visible,.skip:focus-visible,
+.year[aria-pressed="true"]:focus-visible,.detail-close:focus-visible,
+.social-link:focus-visible{
+  outline-color:#fff;outline-offset:-3px}
+
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+  overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.skip{position:absolute;left:12px;top:-60px;z-index:60;background:var(--garnet);
+  color:#fff;padding:10px 16px;font-weight:600;text-decoration:none}
+.skip:focus{top:12px}
+/* display:contents keeps the search landmark from becoming a flex item. */
+.searchgroup{display:contents}
+
+.masthead{background:var(--navy);color:#fff;padding:22px 20px 20px}
+.masthead-in{max-width:1240px;margin:0 auto;display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+.crest{width:88px;height:88px;flex:none;background:var(--garnet);display:grid;place-items:center;
+  font-family:Newsreader,serif;font-size:30px;color:#fff;overflow:hidden}
+/* The garnet square is the backdrop for the initials fallback. A round seal on
+   a white field needs a white disc instead, or it reads as a white box sitting
+   on the navy masthead. */
+.crest:has(img){background:#fff;border-radius:50%}
+.crest img{width:100%;height:100%;object-fit:contain;background:#fff;border-radius:50%}
+.masthead h1{font-size:clamp(23px,3.6vw,36px);color:#fff;letter-spacing:-.01em;text-wrap:balance}
+.titleblock{flex:1 1 320px;min-width:0}
+.masthead p{margin:3px 0 0;font-size:14px;color:#B9C2D6;letter-spacing:.02em}
+.est{margin-left:auto;font-family:Newsreader,serif;font-size:15px;
+  border-left:var(--rule) solid var(--garnet);padding:2px 0 2px 12px}
+
+.social{display:flex;gap:8px;align-items:center}
+/* 40px keeps the tap target comfortably past the WCAG minimum even though the
+   glyph inside is 20px. */
+.social-link{display:grid;place-items:center;width:40px;height:40px;color:#fff;
+  border:1px solid rgba(255,255,255,.35);text-decoration:none}
+.social-link:hover{background:#fff;color:var(--navy);border-color:#fff}
+.social-link svg{width:20px;height:20px;display:block}
+/* An author-level display value would otherwise beat the UA rule for [hidden],
+   so a link with no URL configured would still render. */
+[hidden]{display:none!important}
+
+.bar{background:var(--plate);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:30}
+.bar-in{max-width:1240px;margin:0 auto;padding:12px 20px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.search{flex:1 1 250px;min-width:0;padding:11px 14px;border:1px solid var(--line);
+  background:var(--paper);color:var(--ink);font-size:16px;border-radius:0}
+.search:focus{border-color:var(--navy);outline:none;box-shadow:inset 0 -2px 0 var(--navy)}
+select.filter{padding:11px 12px;border:1px solid var(--line);background:var(--paper);
+  color:var(--ink);font-size:15px;border-radius:0;max-width:210px}
+.tabs{display:flex;gap:2px;margin-left:auto}
+.tab{padding:10px 15px;border:0;background:transparent;color:var(--ink-soft);
+  font-weight:600;font-size:14px;border-bottom:var(--rule) solid transparent}
+.tab[aria-selected="true"]{color:var(--garnet);border-bottom-color:var(--garnet)}
+.print-btn{padding:10px 16px;border:0;background:var(--garnet);color:#fff;font-weight:600;font-size:14px}
+.print-btn:hover{background:var(--garnet-deep)}
+.join-btn{padding:9px 16px;border:1px solid var(--garnet);background:var(--plate);
+  color:var(--garnet);font-weight:600;font-size:14px;text-decoration:none;white-space:nowrap}
+.join-btn:hover{background:var(--garnet);color:#fff}
+
+.shell{max-width:1240px;margin:0 auto;padding:22px 20px 72px;display:grid;grid-template-columns:132px 1fr;gap:30px}
+@media(max-width:820px){.shell{grid-template-columns:1fr;gap:16px}}
+
+.spine{position:sticky;top:76px;align-self:start;max-height:calc(100vh - 100px);overflow-y:auto}
+.spine-all{width:100%;text-align:left;padding:8px 10px;border:0;background:var(--navy);
+  color:#fff;font-weight:700;font-size:13px;margin-bottom:12px}
+.decade{margin-bottom:14px}
+.decade-label{display:flex;width:100%;align-items:center;justify-content:space-between;gap:8px;
+  border:0;border-bottom:var(--rule) solid var(--garnet);background:transparent;text-align:left;
+  font-family:Newsreader,serif;font-size:20px;color:var(--navy);padding:0 0 3px;margin-bottom:6px}
+.decade-label:hover{color:var(--garnet)}
+.decade-label[aria-current="true"]{color:var(--garnet)}
+.decade-label .chev{font-size:11px;line-height:1}
+.decade-label[aria-expanded="true"] .chev{transform:rotate(90deg)}
+@media(prefers-reduced-motion:no-preference){.decade-label .chev{transition:transform .15s ease}}
+.years{display:flex;flex-direction:column;gap:1px}
+.year{text-align:left;padding:4px 8px;border:0;background:transparent;color:var(--ink-soft);
+  font-size:14px;font-variant-numeric:tabular-nums}
+.year:hover{background:#E9E6E0;color:var(--ink)}
+.year[aria-pressed="true"]{background:var(--garnet);color:#fff;font-weight:600}
+.year .n{float:right;opacity:.65;font-size:12px}
+.year[aria-pressed="true"] .n{opacity:1;font-weight:400}
+@media(max-width:820px){
+  /* Decades become a wrapping row of chips. The open one takes the full width
+     so its years can wrap underneath it instead of being crushed into a
+     column inside a chip. */
+  .spine{position:static;max-height:none;display:flex;flex-wrap:wrap;gap:8px;padding-bottom:6px}
+  .spine-all{width:auto;flex:none;margin:0;padding:8px 14px}
+  .decade{margin:0;flex:0 0 auto}
+  .decade:has(.years:not([hidden])){flex:1 1 100%}
+  .decade-label{width:auto;padding:6px 12px;border:1px solid var(--line);
+    border-bottom-width:var(--rule);border-bottom-color:var(--garnet);margin:0;font-size:16px;background:var(--plate)}
+  .years{flex-direction:row;flex-wrap:wrap;gap:6px;margin-top:8px}
+  .year{border:1px solid var(--line);background:var(--plate);padding:6px 12px}
+  .year .n{float:none;margin-left:6px}
+}
+
+.count{font-size:13px;color:var(--ink-soft);margin:0 0 14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:18px 16px}
+@media(max-width:420px){.grid{grid-template-columns:repeat(2,1fr);gap:16px 12px}}
+/* A <button> vertically centres its own content when something stretches it
+   taller than that content needs, which is exactly what a grid row does. That
+   is what knocked the portraits out of line: a card with a two-line name or an
+   office badge is taller, the row grows to match, and every shorter card in
+   that row floated its portrait down to the middle. Declaring the button an
+   explicit flex column opts out of that centring, so content starts at the top
+   edge of every card and the portraits share one baseline. */
+.plate{border:0;padding:0;background:transparent;text-align:left;
+  display:flex;flex-direction:column;width:100%}
+.portrait{aspect-ratio:4/5;width:100%;background:var(--navy);display:grid;place-items:center;overflow:hidden}
+.portrait img{width:100%;height:100%;object-fit:cover;display:block}
+.portrait .initials{font-family:Newsreader,serif;font-size:40px;color:#fff;opacity:.85}
+.plate .rule{height:var(--rule);background:var(--garnet)}
+.plate-name{font-family:Newsreader,serif;font-size:18px;margin:8px 0 1px;line-height:1.2}
+.plate-meta{font-size:13px;line-height:1.35;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+/* margin-top:auto pushes the badge to the bottom edge of a stretched card, so
+   every office badge in a row sits on the same line whatever the name and
+   major above it did. */
+.plate-office{align-self:flex-start;margin-top:auto;padding:2px 7px;
+  font-size:11px;font-weight:700;background:var(--navy);color:#fff}
+.plate-meta+.plate-office{padding-top:2px;margin-top:auto}
+.plate-meta{margin-bottom:7px}
+.plate:hover .plate-name{color:var(--garnet)}
+
+.skel{background:#E7E4DE;aspect-ratio:4/5}
+@media(prefers-reduced-motion:no-preference){.skel{animation:pulse 1.4s ease-in-out infinite}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.55}}
+
+.state{padding:52px 8px;max-width:52ch;grid-column:1/-1}
+.state h2{font-size:25px;margin-bottom:9px}
+.state p{color:var(--ink-soft);margin:0 0 9px}
+.state code{background:rgba(0,0,0,.06);padding:1px 6px;font-size:13.5px;word-break:break-all}
+.state.err h2{color:var(--garnet)}
+
+.scrim{position:fixed;inset:0;background:rgba(20,33,61,.5);z-index:40}
+.detail{position:fixed;top:0;right:0;bottom:0;width:min(460px,100%);background:var(--plate);
+  z-index:50;overflow-y:auto;padding:26px 26px 60px}
+@media(prefers-reduced-motion:no-preference){
+  .detail{animation:slide .22s ease-out}
+  @keyframes slide{from{transform:translateX(24px);opacity:0}to{transform:none;opacity:1}}
+}
+.detail-close{position:absolute;top:14px;right:16px;border:0;background:transparent;
+  font-size:26px;color:var(--ink-soft);line-height:1;padding:4px 8px}
+.detail .portrait{max-width:190px}
+.detail .rule{max-width:190px;height:var(--rule);background:var(--garnet)}
+.detail h2{font-size:29px;margin:14px 0 2px}
+.detail .cls{font-family:Newsreader,serif;font-size:17px;color:var(--garnet);font-variant-numeric:tabular-nums}
+.fact{font-family:Newsreader,serif;font-size:18px;line-height:1.45;font-style:italic;
+  border-left:var(--rule) solid var(--garnet);padding-left:14px;margin:18px 0 22px;color:#3A3431}
+.dl{display:grid;grid-template-columns:auto 1fr;gap:7px 16px;font-size:14px;margin:0}
+.dl dt{color:var(--ink-soft)}
+.dl dd{margin:0}
+.tags{display:flex;flex-wrap:wrap;gap:5px}
+.tag{font-size:12px;padding:2px 8px;border:1px solid var(--garnet);color:var(--garnet)}
+.tag.nv{border-color:var(--navy);color:#fff;background:var(--navy)}
+
+.reader{max-width:66ch;grid-column:1/-1}
+.reader h2{font-size:30px;border-bottom:var(--rule) solid var(--garnet);padding-bottom:7px;margin-bottom:16px}
+.reader .body{white-space:pre-wrap;font-family:Newsreader,serif;font-size:17.5px;line-height:1.68}
+.toc{list-style:none;padding:0;margin:0;max-width:52ch}
+.toc li{border-bottom:1px solid var(--line)}
+.toc button{width:100%;text-align:left;padding:11px 2px;border:0;background:transparent;
+  display:flex;justify-content:space-between;gap:14px;font-family:Newsreader,serif;font-size:19px}
+.toc button:hover{color:var(--garnet)}
+.toc .pg{font-family:Archivo,sans-serif;font-size:13px;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+.evt{display:grid;grid-template-columns:104px 1fr;gap:14px;padding:13px 0;border-bottom:1px solid var(--line)}
+.evt time{font-family:Newsreader,serif;font-size:15px;color:var(--garnet);font-variant-numeric:tabular-nums}
+.evt small{color:var(--ink-soft);display:block}
+
+.foot{border-top:1px solid var(--line);background:var(--plate)}
+.foot-in{max-width:1240px;margin:0 auto;padding:24px 20px;font-size:14px;color:var(--ink-soft)}
+.foot p{margin:0}
+.foot a{color:var(--garnet);font-weight:600}
+
+.sheet{display:none}
+@media print{
+  @page{size:letter;margin:.55in}
+  .masthead,.bar,.shell,.scrim,.detail,.skip,.foot{display:none!important}
+  body{background:#fff;font-size:10.5pt}
+  .sheet{display:block}
+  .pg-break{break-after:page;page-break-after:always}
+  .cover{height:9.1in;display:flex;flex-direction:column;justify-content:center;align-items:center;
+    text-align:center;border:6px double var(--garnet);padding:40px}
+  .cover .crest{width:150px;height:150px;font-size:46px;margin-bottom:26px}
+  .cover h1{font-size:38pt;line-height:1.1;max-width:12ch}
+  .cover p{font-size:13pt;color:#444;margin:14px 0 0;letter-spacing:.06em}
+  .cover .est{border:0;border-top:var(--rule) solid var(--garnet);padding:11px 0 0;
+    margin:30px 0 0;font-size:15pt;color:var(--ink)}
+  .cover .parent{font-size:10.5pt;color:#444;margin:22px 0 0;letter-spacing:.02em}
+  .sheet h2{font-size:20pt;border-bottom:var(--rule) solid var(--garnet);
+    padding-bottom:5px;margin:0 0 12px;break-after:avoid}
+  .sheet .body{white-space:pre-wrap;font-family:Newsreader,serif;font-size:11pt;line-height:1.55}
+  .sheet section{break-inside:avoid-page}
+  .p-toc{list-style:none;padding:0;font-family:Newsreader,serif;font-size:12.5pt}
+  .p-toc li{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px dotted #999}
+  .p-grid{display:grid;gap:16px 14px}
+  .p-plate{break-inside:avoid;page-break-inside:avoid}
+  .p-portrait{aspect-ratio:4/5;background:var(--navy);display:grid;place-items:center;color:#fff;
+    font-family:Newsreader,serif;font-size:24pt;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .p-portrait img{width:100%;height:100%;object-fit:cover}
+  .p-plate .rule{height:2px;background:var(--garnet);
+    -webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .p-plate h3{font-size:11.5pt;margin:5px 0 1px}
+  .p-plate p{margin:0;font-size:8.5pt;color:#444;line-height:1.35}
+  .p-cal{width:100%;border-collapse:collapse;font-size:9pt}
+  .p-cal th{background:var(--navy);color:#fff;padding:5px;text-align:left;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .p-cal td{border-bottom:1px solid #ccc;padding:5px}
+  .crest{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+
+<a class="skip" href="#shell">Skip to directory</a>
+
+<header class="masthead">
+  <div class="masthead-in">
+    <div class="crest" id="crest"></div>
+    <div class="titleblock"><h1 id="siteTitle"> South Carolina State University National Alumni Association Greenville Chapter</h1><p id="siteSub"></p></div>
+    <div class="est" id="est"></div>
+
+    <div class="social" id="social" hidden>
+      <a class="social-link" id="fb" href="#" hidden target="_blank" rel="noopener noreferrer"
+         aria-label="Chapter Facebook page, opens in a new tab">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.15 8.44 9.94v-7.03H7.9v-2.9h2.54V9.85c0-2.51 1.49-3.9 3.77-3.9 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.78-1.63 1.57v1.88h2.78l-.45 2.9h-2.33V22c4.78-.79 8.44-4.93 8.44-9.94z"/></svg>
+      </a>
+      <a class="social-link" id="ig" href="#" hidden target="_blank" rel="noopener noreferrer"
+         aria-label="Chapter Instagram profile, opens in a new tab">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zM12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.3-1.46.72-2.12 1.38C1.36 2.67.94 3.34.63 4.14.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.3.79.72 1.46 1.38 2.12.66.66 1.33 1.08 2.12 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56.79-.3 1.46-.72 2.12-1.38.66-.66 1.08-1.33 1.38-2.12.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91-.3-.79-.72-1.46-1.38-2.12C21.33 1.36 20.66.94 19.86.63c-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0z"/><path d="M12 5.84A6.16 6.16 0 1 0 12 18.16 6.16 6.16 0 0 0 12 5.84zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8z"/><circle cx="18.41" cy="5.59" r="1.44"/></svg>
+      </a>
+    </div>
+  </div>
+</header>
+
+<nav class="bar">
+  <div class="bar-in">
+    <div class="searchgroup" role="search">
+      <input class="search" id="q" type="search" placeholder="Search name, major, or organization" aria-label="Search members">
+      <select class="filter" id="committee" aria-label="Filter by committee"><option value="">All committees</option></select>
+    </div>
+    <div class="tabs" role="tablist" aria-label="Directory sections">
+      <button class="tab" role="tab" id="tab-directory" data-view="directory" aria-controls="shell" aria-selected="true">Directory</button>
+      <button class="tab" role="tab" id="tab-pages"     data-view="pages"     aria-controls="shell" aria-selected="false" tabindex="-1">Chapter</button>
+      <button class="tab" role="tab" id="tab-events"    data-view="events"    aria-controls="shell" aria-selected="false" tabindex="-1">Calendar</button>
+    </div>
+    <a class="join-btn" id="join" href="#" target="_blank" rel="noopener noreferrer" hidden>Membership form</a>
+    <button class="print-btn" id="print">Print directory</button>
+  </div>
+</nav>
+
+<p class="sr-only" id="live" role="status" aria-live="polite"></p>
+
+<main class="shell" id="shell" role="tabpanel" tabindex="-1" aria-labelledby="tab-directory"></main>
+
+<footer class="foot" id="foot" hidden>
+  <div class="foot-in">
+    <p>Chapter of the
+      <a id="naa" href="#" target="_blank" rel="noopener noreferrer">South
+      Carolina State University National Alumni Association</a></p>
+  </div>
+</footer>
+<div class="sheet" id="sheet" aria-hidden="true"></div>
+
+<script src="config.js"></script>
+<script>
+/* ==========================================================================
+   1. DATA ADAPTERS — one per CONFIG.source. Each returns the same shape:
+      { settings, members[], pages[], events[] }
+   ========================================================================== */
+
+const C = CONFIG, COL = C.columns;
+
+/* "no-cache" revalidates on every load but honours a 304, so a directory that
+   hasn't been republished costs a few hundred bytes instead of the whole file.
+   "no-store" would re-download all 117KB on every page view. */
+async function getJSON(url){
+  const r = await fetch(url, {cache:"no-cache", credentials:"omit", referrerPolicy:"no-referrer"});
+  if(!r.ok) throw new Error(`${r.status} fetching ${url}`);
+  return r.json();
+}
+
+async function getCSV(url){
+  const r = await fetch(url, {cache:"no-cache", credentials:"omit", referrerPolicy:"no-referrer"});
+  if(!r.ok) throw new Error(`${r.status} fetching published CSV`);
+  return parseCSV(await r.text());
+}
+
+/* RFC-4180-ish: handles quoted fields, escaped quotes, embedded newlines. */
+function parseCSV(text){
+  const rows=[]; let row=[], cell="", q=false;
+  for(let i=0;i<text.length;i++){
+    const c=text[i];
+    if(q){
+      if(c === '"'){ if(text[i+1] === '"'){ cell+='"'; i++; } else q=false; }
+      else cell+=c;
+    }else{
+      if(c === '"') q=true;
+      else if(c === ",") { row.push(cell); cell=""; }
+      else if(c === "\n"){ row.push(cell); rows.push(row); row=[]; cell=""; }
+      else if(c !== "\r") cell+=c;
+    }
+  }
+  if(cell !== "" || row.length){ row.push(cell); rows.push(row); }
+  return rows;
+}
+
+const normKey = h => String(h).trim().toLowerCase().replace(/[^a-z0-9]+/g,"_").replace(/^_|_$/g,"");
+
+/* [[headers],[row]] -> [{key: value}] */
+function rowsToObjects(rows){
+  if(!rows || rows.length < 2) return [];
+  const headers = rows[0].map(normKey);
+  return rows.slice(1)
+    .filter(r => r.some(c => String(c).trim() !== ""))
+    .map(r => {
+      const o = {};
+      headers.forEach((h,i) => { if(h) o[h] = r[i] ?? ""; });
+      return o;
+    });
+}
+
+const SOURCES = {
+  async json(){
+    return await getJSON(C.json.url);
+  },
+
+  async "apps-script"(){
+    if(/PASTE_/.test(C.appsScript.url)) throw new Error("appsScript.url is not set in config.js");
+    return await getJSON(C.appsScript.url);
+  },
+
+  async "sheets-csv"(){
+    const s = C.sheetsCsv;
+    if(/PASTE_/.test(s.publishedId)) throw new Error("sheetsCsv.publishedId is not set in config.js");
+    const csv = gid =>
+      `https://docs.google.com/spreadsheets/d/e/${s.publishedId}/pub?gid=${gid}&single=true&output=csv`;
+    const [roster, pages, events] = await Promise.all([
+      getCSV(csv(s.rosterGid)),
+      s.pagesGid ? getCSV(csv(s.pagesGid)) : Promise.resolve(null),
+      s.eventsGid ? getCSV(csv(s.eventsGid)) : Promise.resolve(null),
+    ]);
+    return assemble(rowsToObjects(roster), rowsToObjects(pages), rowsToObjects(events));
+  },
+
+  async "sheets-api"(){
+    const s = C.sheetsApi;
+    if(/PASTE_/.test(s.apiKey) || /PASTE_/.test(s.spreadsheetId))
+      throw new Error("sheetsApi.apiKey or spreadsheetId is not set in config.js");
+    const get = async range => {
+      const url = `https://sheets.googleapis.com/v4/spreadsheets/${s.spreadsheetId}` +
+                  `/values/${encodeURIComponent(range)}?key=${s.apiKey}`;
+      const r = await fetch(url, {credentials:"omit", referrerPolicy:"no-referrer"});
+      if(!r.ok){
+        const body = await r.text();
+        throw new Error(`Sheets API ${r.status}. Check the key, its restrictions, and that the sheet is link-viewable. ${body.slice(0,160)}`);
+      }
+      return (await r.json()).values || [];
+    };
+    const [roster, pages, events] = await Promise.all([
+      get(s.rosterRange),
+      s.pagesRange ? get(s.pagesRange) : [],
+      s.eventsRange ? get(s.eventsRange) : [],
+    ]);
+    return assemble(rowsToObjects(roster), rowsToObjects(pages), rowsToObjects(events));
+  },
+};
+
+/* Sheet rows -> the same shape the JSON publisher emits. */
+function assemble(roster, pages, events){
+  return {
+    settings: {},
+    members: (roster || [])
+      .filter(r => C.options.visibleStatuses
+        .includes(String(r[COL.status] ?? "active").trim().toLowerCase()))
+      .map(mapMember),
+    pages: (pages || [])
+      .filter(p => p.title)
+      .map(p => ({slug: p.slug || slugify(p.title), title: p.title,
+                  body: p.body || "", order: Number(p.order || 999)})),
+    events: (events || [])
+      .filter(e => e.date && e.title)
+      .map(e => ({date: String(e.date), title: e.title,
+                  location: e.location || "", notes: e.notes || ""})),
+  };
+}
+
+/* Opt-in enforcement for live sheet sources. Note this only controls what's
+   DISPLAYED. If the browser can read the sheet, it can read every column on
+   it. Keep private data on a tab this app never points at. */
+function mapMember(r){
+  const m = {
+    id: r[COL.id] || slugify(`${r[COL.firstName]}-${r[COL.lastName]}-${r[COL.gradYear]}`),
+    first_name: r[COL.firstName] || "",
+    last_name: r[COL.lastName] || "",
+    preferred_name: r[COL.preferredName] || "",
+    grad_year: String(r[COL.gradYear] || "").replace(/\D/g,"").slice(0,4),
+    major: r[COL.major] || "",
+    birth_month: r[COL.birthMonth] || "",
+    birth_day: r[COL.birthDay] || "",
+    fun_fact: r[COL.funFact] || "",
+    committees: splitList(r[COL.committees]),
+    offices: splitList(r[COL.offices]),
+    organizations: splitList(r[COL.organizations]).slice(0,10),
+    photo: driveThumb(r[COL.photo] || r.photo_file_id),
+  };
+  if(isYes(r[COL.showEmail]) && r[COL.email]) m.email = r[COL.email];
+  if(isYes(r[COL.showPhone]) && r[COL.phone]) m.phone = r[COL.phone];
+  if(isYes(r[COL.showCity]) && r[COL.city])
+    m.location = [r[COL.city], r[COL.state]].filter(Boolean).join(", ");
+  return m;
+}
+
+const splitList = v => !v ? [] :
+  String(v).split(/[,;]/).map(s => s.trim()).filter(Boolean);
+
+/* Sheet sources store a Drive share URL, which a browser cannot render as an
+   image. Turn it into the thumbnail endpoint at the same 600px the publisher
+   uses. Note this only loads if the Drive file is shared "anyone with the
+   link"; the json/apps-script sources avoid the problem by committing the
+   image itself. Non-Drive URLs pass through untouched, anything else is
+   dropped so a javascript: or data: value can never reach an src. */
+const driveThumb = v => {
+  const t = String(v ?? "").trim();
+  if(!t) return "";
+  const id = t.match(/[-\w]{25,}/);
+  if(/drive\.google\.com|docs\.google\.com/.test(t) && id)
+    return `https://drive.google.com/thumbnail?id=${id[0]}&sz=w600`;
+  return safeUrl(t);
+};
+
+/* Only same-origin-relative paths and http(s) absolute URLs. Blocks
+   javascript:, data:, and anything else that could execute. */
+const safeUrl = v => {
+  const t = String(v ?? "").trim();
+  if(!t) return "";
+  if(/^https?:\/\//i.test(t)) return t;
+  if(/^[\w][\w.\-]*(\/[\w.\-%]+)*$/.test(t) || /^\/[\w.\-%/]*$/.test(t)) return t;
+  return "";
+};
+
+/* Settings come from a spreadsheet an officer edits. A colour lands in a CSS
+   custom property, so validate it as a hex triple rather than trusting it. */
+const HEX = /^#(?:[0-9a-f]{3}|[0-9a-f]{6})$/i;
+const safeColor = (v, fallback) => {
+  const t = String(v ?? "").trim();
+  return HEX.test(t) ? t : fallback;
+};
+const isYes = v => /^(yes|true|y|x|1|checked)$/i.test(String(v ?? "").trim());
+const slugify = s => String(s).toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
+
+/* ==========================================================================
+   2. STATE
+   ========================================================================== */
+
+let DATA = null, error = null, loading = true;
+let view = "directory", year = "", committee = "", query = "", openId = null, openPage = null;
+// Which decade is expanded in the spine. Doubles as the decade filter: opening
+// a decade shows its members, then a year inside it narrows further.
+let decade = "";
+// Selector to re-focus after render() replaces the spine, so keyboard users
+// aren't dumped at the top of the document every time they expand a decade.
+let pendingFocus = "";
+
+const shell = document.getElementById("shell");
+const MONTHS = ["January","February","March","April","May","June","July",
+                "August","September","October","November","December"];
+const esc = s => String(s ?? "").replace(/[&<>"']/g,
+  c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const nameOf = m => `${m.preferred_name || m.first_name} ${m.last_name}`.trim();
+const placeholderPhoto = () => safeUrl(C.brand.placeholderPhoto || "");
+
+/* The one place that decides what fills a portrait frame: the member's photo,
+   then the configured placeholder, then their initials. `data-initials` rides
+   along on the img so the error handler can fall back without re-deriving it.
+   opts.alt="" for print, where the name is already printed beneath. */
+function portraitInner(m, opts = {}){
+  const src = safeUrl(m.photo) || placeholderPhoto();
+  const initials = esc(initialsOf(m));
+  if(!src) return `<span class="initials">${initials}</span>`;
+  const alt = opts.decorative ? "" : esc(nameOf(m));
+  return `<img src="${esc(src)}" alt="${alt}" data-initials="${initials}"` +
+         `${opts.lazy ? ` loading="lazy"` : ""} decoding="async">`;
+}
+const initialsOf = m => (m.first_name?.[0] || "") + (m.last_name?.[0] || "");
+
+/* ==========================================================================
+   3. BOOT
+   ========================================================================== */
+
+function applyBrand(settings = {}){
+  const b = C.brand;
+  const title = settings.site_title || b.title;
+  const sub = settings.site_subtitle || b.subtitle;
+  const est = settings.founded_year || b.foundedYear;
+  const primary = safeColor(settings.color_primary, safeColor(b.primary, "#7A1220"));
+  const secondary = safeColor(settings.color_secondary, safeColor(b.secondary, "#14213D"));
+  const logo = safeUrl(settings.logo_url || b.logoUrl);
+  const joinUrl = safeUrl(settings.membership_form_url || C.links?.membershipForm || "");
+
+  document.title = title;
+  document.getElementById("siteTitle").textContent = title;
+  document.getElementById("siteSub").textContent = sub || "";
+  document.getElementById("est").textContent = est ? "Est. " + est : "";
+  // alt="" throughout: the seal sits next to the chapter name in the heading,
+  // so describing it again would just make a screen reader say it twice.
+  const crestInitials = esc(b.initials || title.slice(0,2).toUpperCase());
+  document.getElementById("crest").innerHTML = logo
+    ? `<img src="${esc(logo)}" alt="" data-initials="${crestInitials}">`
+    : crestInitials;
+
+  // Hidden rather than rendered dead when nothing is configured.
+  const join = document.getElementById("join");
+  join.hidden = !joinUrl;
+  if(joinUrl) join.href = joinUrl;
+
+  document.getElementById("foot").hidden =
+    !setLink("naa", settings.national_association_url || C.links?.nationalAssociation);
+
+  const fb = setLink("fb", settings.facebook_url || C.links?.facebook);
+  const ig = setLink("ig", settings.instagram_url || C.links?.instagram);
+  document.getElementById("social").hidden = !fb && !ig;
+
+  const root = document.documentElement.style;
+  root.setProperty("--garnet", primary);
+  root.setProperty("--navy", secondary);
+  root.setProperty("--garnet-deep", shade(primary, -0.22));
+}
+
+/* Returns whether the link ended up visible, so the row can hide itself when
+   every icon in it is unset. */
+function setLink(id, value){
+  const url = safeUrl(value || "");
+  const el = document.getElementById(id);
+  el.hidden = !url;
+  if(url) el.href = url;
+  return !!url;
+}
+
+/* Darken a hex color without a library. */
+function shade(hex, amt){
+  let h = String(hex).replace("#","");
+  if(h.length === 3) h = h[0]+h[0]+h[1]+h[1]+h[2]+h[2];
+  if(h.length !== 6) return hex;
+  const n = parseInt(h,16);
+  const ch = i => {
+    const v = (n >> (16 - i*8)) & 255;
+    return Math.max(0, Math.min(255, Math.round(v + v*amt)));
+  };
+  return "#" + [0,1,2].map(i => ch(i).toString(16).padStart(2,"0")).join("");
+}
+
+async function boot(){
+  applyBrand();
+  render();
+  const loader = SOURCES[C.source];
+  if(!loader){
+    error = `config.js has source: "${C.source}", which isn't one of json, sheets-csv, sheets-api, or apps-script.`;
+    loading = false; return render();
+  }
+  try{
+    DATA = await loader();
+    DATA.members ||= []; DATA.pages ||= []; DATA.events ||= [];
+    applyBrand(DATA.settings || {});
+    invalidate();
+    fillCommittees();
+  }catch(e){
+    error = e.message;
+  }finally{
+    loading = false;
+    render();
+  }
+  const mins = Number(C.options.refreshMinutes || 0);
+  if(mins > 0 && C.source !== "json") setInterval(refresh, mins * 60000);
+}
+
+async function refresh(){
+  try{
+    const next = await SOURCES[C.source]();
+    DATA = next; invalidate(); fillCommittees(); render();
+  }catch(e){ /* keep showing the last good data */ }
+}
+
+/* Everything derived from DATA. Cleared whenever DATA is replaced, so a
+   keystroke in the search box re-filters but does not re-walk 200 members to
+   recount class years or rebuild a 200-plate print document. */
+let yearIndex = null, sheetBuilt = false;
+
+function invalidate(){ yearIndex = null; sheetBuilt = false; }
+
+/* The print document is roughly as much DOM as the whole screen view and is
+   never visible until someone prints. Build it on demand. */
+function ensureSheet(){
+  if(sheetBuilt || !DATA) return;
+  buildSheet();
+  sheetBuilt = true;
+}
+
+function fillCommittees(){
+  const sel = document.getElementById("committee");
+  const current = sel.value;
+  const all = [...new Set(DATA.members.flatMap(m => m.committees || []))].sort();
+  sel.innerHTML = `<option value="">All committees</option>` +
+    all.map(c => `<option${c === current ? " selected" : ""}>${esc(c)}</option>`).join("");
+}
+
+/* ==========================================================================
+   4. RENDER
+   ========================================================================== */
+
+function visible(){
+  const q = query.trim().toLowerCase();
+  return DATA.members.filter(m => {
+    if(year && m.grad_year !== year) return false;
+    if(!year && decade && String(Math.floor(+m.grad_year/10)*10) !== decade) return false;
+    if(committee && !(m.committees || []).includes(committee)) return false;
+    if(!q) return true;
+    return [nameOf(m), m.major, m.grad_year, m.fun_fact,
+            ...(m.organizations||[]), ...(m.offices||[])]
+      .join(" ").toLowerCase().includes(q);
+  });
+}
+
+/* Null-prototype maps: grad_year is data, and a member whose year read
+   "__proto__" would otherwise mutate Object.prototype instead of counting. */
+function buildYearIndex(){
+  const counts = Object.create(null), decades = Object.create(null);
+  DATA.members.forEach(m => {
+    const y = String(m.grad_year || "").replace(/\D/g,"").slice(0,4);
+    if(!y) return;
+    counts[y] = (counts[y] || 0) + 1;
+  });
+  Object.keys(counts).forEach(y => {
+    const d = Math.floor(+y/10)*10;
+    (decades[d] = decades[d] || []).push(y);
+  });
+  Object.keys(decades).forEach(d => decades[d].sort());
+  return {counts, decades, order: Object.keys(decades).sort()};
+}
+
+const decadeLabel = d => `${String(d).slice(2)}s`;
+
+/* Each decade is a disclosure button that also filters. Opening the 60s shows
+   every 1960s graduate; picking a year inside it narrows to that class. */
+function spineHtml(){
+  const {counts, decades, order} = (yearIndex ||= buildYearIndex());
+  return `<nav class="spine" aria-label="Filter by class year">
+    <button class="spine-all" aria-pressed="${!year && !decade}">All classes</button>
+    ${order.map(d => {
+      const id = String(d), open = decade === id;
+      const total = decades[d].reduce((n,y) => n + counts[y], 0);
+      return `<div class="decade">
+        <button class="decade-label" data-decade="${id}"
+                aria-expanded="${open}" aria-controls="years-${id}"
+                ${open && !year ? `aria-current="true"` : ""}
+                aria-label="${decadeLabel(d)}, ${total} members">
+          <span aria-hidden="true">${decadeLabel(d)}</span>
+          <span class="chev" aria-hidden="true">&#9656;</span>
+        </button>
+        <div class="years" id="years-${id}"${open ? "" : " hidden"}>${decades[d].map(y =>
+          `<button class="year" data-year="${esc(y)}" aria-pressed="${year===y}" aria-label="Class of ${esc(y)}, ${counts[y]} members">${esc(y)}<span class="n" aria-hidden="true">${counts[y]}</span></button>`
+        ).join("")}</div></div>`;
+    }).join("")}
+  </nav>`;
+}
+
+function plateHtml(m){
+  return `<button class="plate" data-id="${esc(m.id)}">
+    <div class="portrait">${portraitInner(m, {lazy: true})}</div>
+    <div class="rule"></div>
+    <div class="plate-name">${esc(nameOf(m))}</div>
+    <div class="plate-meta">${esc(m.grad_year)}${m.major ? " &middot; " + esc(m.major) : ""}</div>
+    ${(m.offices||[]).length ? `<span class="plate-office">${esc(m.offices[0])}</span>` : ""}
+  </button>`;
+}
+
+const live = document.getElementById("live");
+function announce(msg){ if(live.textContent !== msg) live.textContent = msg; }
+
+function render(){
+  shell.setAttribute("aria-busy", String(loading));
+  if(loading){
+    announce("Loading directory");
+    shell.innerHTML = `<div></div><div><p class="count">Loading directory…</p>
+      <div class="grid">${Array.from({length:8},() => `<div><div class="skel"></div></div>`).join("")}</div></div>`;
+    return;
+  }
+
+  if(error){
+    announce("The directory could not be loaded.");
+    shell.innerHTML = `<div class="state err"><h2>Couldn't load the directory</h2>
+      <p><code>${esc(error)}</code></p>
+      <p>Source is set to <code>${esc(C.source)}</code> in <code>config.js</code>.</p>
+      <p>Opening this file directly from your computer will always fail, because browsers
+      block <code>fetch</code> on <code>file://</code>. Run
+      <code>python3 -m http.server 8000</code> in this folder and open
+      <code>localhost:8000</code>.</p></div>`;
+    return;
+  }
+
+  if(!DATA.members.length && view === "directory"){
+    shell.innerHTML = `<div class="state"><h2>No members yet</h2>
+      <p>The directory loaded fine, there's just nobody in it. As members submit the
+      form and get marked active, they'll appear here.</p>
+      <p>To see how it looks with people in it, point
+      <code>config.js</code> at <code>data/directory-200.json</code>.</p></div>`;
+    return;
+  }
+
+  if(view === "pages") return renderPages();
+  if(view === "events") return renderEvents();
+
+  const list = visible();
+  const scope = year ? `, class of ${year}`
+    : decade ? `, ${decadeLabel(decade)}` : "";
+  announce(list.length
+    ? `${list.length} of ${DATA.members.length} members shown${scope}.`
+    : "No members match the current search or filters.");
+  shell.innerHTML = spineHtml() + `<div>` + (list.length
+    ? `<p class="count">${list.length} of ${DATA.members.length} members${
+        esc(scope)}${committee ? `, ${esc(committee)} committee` : ""}</p>
+       <div class="grid">${list.map(plateHtml).join("")}</div>`
+    : `<div class="state"><h2>No matches</h2><p>Nothing here for that search.
+       Clear the filters or try a last name, a major, or a class year.</p></div>`) + `</div>`;
+  if(pendingFocus){
+    document.querySelector(pendingFocus)?.focus();
+    pendingFocus = "";
+  }
+  // Only if the panel isn't already on screen — re-inserting it would stack a
+  // second dialog with duplicate ids and yank focus away mid-typing.
+  if(openId && !document.getElementById("detail")) drawDetail();
+}
+
+function renderPages(){
+  const pages = DATA.pages.slice().sort((a,b) => (a.order||999) - (b.order||999));
+  if(!pages.length){
+    shell.innerHTML = `<div class="state"><h2>No chapter pages yet</h2>
+      <p>Bylaws, officers, membership levels, scholarship, and the rest live here.
+      Add rows to the Pages tab and they'll show up in this order.</p></div>`;
+    return;
+  }
+  const p = openPage ? pages.find(x => x.slug === openPage) : null;
+  shell.innerHTML = `<div class="reader">` + (p
+    ? `<button class="tab" id="back" style="padding-left:0">Back to contents</button>
+       <h2>${esc(p.title)}</h2><div class="body">${esc(p.body)}</div>`
+    : `<h2>Contents</h2><ul class="toc">${pages.map((x,i) =>
+        `<li><button data-page="${esc(x.slug)}"><span>${esc(x.title)}</span>
+           <span class="pg">${i+1}</span></button></li>`).join("")}</ul>`) + `</div>`;
+}
+
+function renderEvents(){
+  const evts = DATA.events.slice().sort((a,b) => String(a.date).localeCompare(String(b.date)));
+  shell.innerHTML = `<div class="reader"><h2>Calendar</h2>` + (evts.length
+    ? evts.map(e => {
+        const d = new Date(String(e.date) + "T12:00:00");
+        const when = isNaN(d) ? esc(e.date)
+          : `${MONTHS[d.getMonth()].slice(0,3)} ${d.getDate()}, ${d.getFullYear()}`;
+        return `<div class="evt"><time>${when}</time><div>
+          <strong>${esc(e.title)}</strong>
+          ${e.location ? `<small>${esc(e.location)}</small>` : ""}
+          ${e.notes ? `<small>${esc(e.notes)}</small>` : ""}</div></div>`;
+      }).join("")
+    : `<p>No events scheduled. Add rows to the Events tab.</p>`) + `</div>`;
+}
+
+function drawDetail(){
+  const m = DATA.members.find(x => x.id === openId);
+  if(!m) return;
+  const rows = [];
+  if(m.major) rows.push(["Major", esc(m.major)]);
+  if(C.options.showBirthdays && m.birth_month)
+    rows.push(["Birthday", esc(`${m.birth_month} ${m.birth_day}`.trim())]);
+  if(m.location) rows.push(["Lives in", esc(m.location)]);
+  if(m.email) rows.push(["Email", `<a href="mailto:${esc(m.email)}">${esc(m.email)}</a>`]);
+  if(m.phone) rows.push(["Phone", `<a href="tel:${esc(m.phone)}">${esc(m.phone)}</a>`]);
+  if((m.offices||[]).length) rows.push(["Offices held",
+    `<div class="tags">${m.offices.map(o => `<span class="tag nv">${esc(o)}</span>`).join("")}</div>`]);
+  if((m.committees||[]).length) rows.push(["Committees",
+    `<div class="tags">${m.committees.map(c => `<span class="tag">${esc(c)}</span>`).join("")}</div>`]);
+  if((m.organizations||[]).length) rows.push(["Affiliations",
+    `<div class="tags">${m.organizations.map(o => `<span class="tag">${esc(o)}</span>`).join("")}</div>`]);
+
+  // Remember where focus came from so Escape doesn't strand a keyboard user
+  // at the top of the document.
+  // Don't clobber the remembered element if a panel is somehow already up.
+  if(!document.getElementById("detail")) lastFocus = document.activeElement;
+  closeDetail(true);
+
+  document.body.insertAdjacentHTML("beforeend",
+    `<div class="scrim" id="scrim"></div>
+     <aside class="detail" id="detail" role="dialog" aria-modal="true" aria-label="${esc(nameOf(m))}" tabindex="-1">
+       <button class="detail-close" id="closeDetail" aria-label="Close">&times;</button>
+       <div class="portrait">${portraitInner(m)}</div>
+       <div class="rule"></div>
+       <h2>${esc(nameOf(m))}</h2>
+       <div class="cls">Class of ${esc(m.grad_year)}</div>
+       ${m.fun_fact ? `<p class="fact">${esc(m.fun_fact)}</p>` : ""}
+       <dl class="dl">${rows.map(([k,v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("")}</dl>
+     </aside>`);
+  // aria-modal alone does not stop Tab from walking into the page behind the
+  // panel. inert does, and it removes the background from the a11y tree too.
+  BACKGROUND.forEach(el => el?.setAttribute("inert", ""));
+  document.getElementById("detail").focus();
+}
+
+let lastFocus = null;
+const BACKGROUND = [
+  document.querySelector(".masthead"),
+  document.querySelector(".bar"),
+  shell,
+  document.getElementById("foot"),
+];
+
+function closeDetail(replacing){
+  const open = document.getElementById("detail");
+  document.getElementById("scrim")?.remove();
+  open?.remove();
+  if(replacing) return;
+  // Escape fires on every keypress; without this it would pull focus to the
+  // search box even when nothing was open.
+  if(!open) return;
+  openId = null;
+  BACKGROUND.forEach(el => el?.removeAttribute("inert"));
+  if(lastFocus && document.contains(lastFocus)) lastFocus.focus();
+  else document.getElementById("q")?.focus();
+  lastFocus = null;
+}
+
+/* Keep Tab inside the open panel. */
+const FOCUSABLE = 'a[href],button:not([disabled]),input,select,textarea,[tabindex]:not([tabindex="-1"])';
+function trapFocus(e){
+  if(e.key !== "Tab") return;
+  const d = document.getElementById("detail");
+  if(!d) return;
+  const items = [...d.querySelectorAll(FOCUSABLE)].filter(el => el.offsetParent !== null);
+  if(!items.length){ e.preventDefault(); return d.focus(); }
+  const first = items[0], last = items[items.length - 1], on = document.activeElement;
+  if(e.shiftKey && (on === first || on === d)){ e.preventDefault(); last.focus(); }
+  else if(!e.shiftKey && on === last){ e.preventDefault(); first.focus(); }
+}
+
+/* ==========================================================================
+   5. PRINT — a separate document, not the screen with the nav hidden
+   ========================================================================== */
+
+function buildSheet(){
+  const s = DATA.settings || {}, b = C.brand;
+  const naaUrl = safeUrl(s.national_association_url || C.links?.nationalAssociation || "");
+  const title = s.site_title || b.title;
+  const pages = DATA.pages.slice().sort((a,b2) => (a.order||999) - (b2.order||999));
+
+  const cover = `<div class="cover pg-break">
+    <div class="crest">${safeUrl(s.logo_url || b.logoUrl)
+      ? `<img src="${esc(safeUrl(s.logo_url || b.logoUrl))}" alt="">`
+      : esc(b.initials || title.slice(0,2).toUpperCase())}</div>
+    <h1>${esc(title)}</h1><p>${esc(s.site_subtitle || b.subtitle || "")}</p>
+    <div class="est">Est. ${esc(s.founded_year || b.foundedYear || "")}</div>
+    ${naaUrl ? `<p class="parent">Chapter of the South Carolina State University
+      National Alumni Association<br>${esc(naaUrl.replace(/^https?:\/\//, "").replace(/\/$/, ""))}</p>` : ""}
+    </div>`;
+
+  const toc = `<section class="pg-break"><h2>Contents</h2><ul class="p-toc">
+    ${pages.map((p,i) => `<li><span>${esc(p.title)}</span><span>${i+1}</span></li>`).join("")}
+    <li><span>Calendar of Events</span><span>${pages.length+1}</span></li>
+    <li><span>Membership Roster</span><span>${pages.length+2}</span></li></ul></section>`;
+
+  const body = pages.map(p =>
+    `<section class="pg-break"><h2>${esc(p.title)}</h2>
+     <div class="body">${esc(p.body)}</div></section>`).join("");
+
+  const cal = `<section class="pg-break"><h2>Calendar of Events</h2>
+    <table class="p-cal"><thead><tr><th>Date</th><th>Event</th><th>Location</th></tr></thead>
+    <tbody>${DATA.events.map(e => {
+      const d = new Date(String(e.date) + "T12:00:00");
+      const when = isNaN(d) ? esc(e.date) : `${MONTHS[d.getMonth()].slice(0,3)} ${d.getDate()}`;
+      return `<tr><td>${when}</td><td>${esc(e.title)}</td><td>${esc(e.location||"")}</td></tr>`;
+    }).join("")}</tbody></table></section>`;
+
+  const cols = Math.min(6, Math.max(1, Math.round(Number(C.options.printColumns) || 3)));
+  const roster = `<section><h2>Membership Roster</h2>
+    <div class="p-grid" style="grid-template-columns:repeat(${cols},1fr)">
+    ${DATA.members.map(m => `<div class="p-plate">
+      <div class="p-portrait">${portraitInner(m, {decorative: true})}</div>
+      <div class="rule"></div><h3>${esc(nameOf(m))}</h3>
+      <p>${esc(m.grad_year)}${m.major ? " &middot; " + esc(m.major) : ""}
+      ${(m.offices||[]).length ? "<br>" + esc(m.offices.join(", ")) : ""}</p>
+    </div>`).join("")}</div></section>`;
+
+  document.getElementById("sheet").innerHTML = cover + toc + body + cal + roster;
+}
+
+/* ==========================================================================
+   6. EVENTS
+   ========================================================================== */
+
+function selectTab(tab, moveFocus){
+  view = tab.dataset.view; openPage = null;
+  document.querySelectorAll(".tab[data-view]").forEach(b => {
+    const on = b === tab;
+    b.setAttribute("aria-selected", String(on));
+    // Roving tabindex: one stop for the whole tablist, arrows move between.
+    b.tabIndex = on ? 0 : -1;
+  });
+  shell.setAttribute("aria-labelledby", tab.id);
+  if(moveFocus) tab.focus();
+  render();
+}
+
+document.addEventListener("click", e => {
+  const t = e.target;
+  const tab = t.closest(".tab[data-view]");
+  if(tab) return selectTab(tab, false);
+  if(t.closest("#back")){ openPage = null; return render(); }
+  const pg = t.closest("[data-page]");
+  if(pg){ openPage = pg.dataset.page; render(); return window.scrollTo(0,0); }
+  if(t.closest(".spine-all")){ year = ""; decade = ""; pendingFocus = ".spine-all"; return render(); }
+
+  const dec = t.closest("[data-decade]");
+  if(dec){
+    const d = dec.dataset.decade;
+    // Clicking the open decade closes it and clears the filter with it.
+    decade = decade === d ? "" : d;
+    year = "";
+    pendingFocus = `[data-decade="${d}"]`;
+    return render();
+  }
+
+  const yr = t.closest(".year");
+  if(yr){
+    const y = yr.dataset.year;
+    year = year === y ? "" : y;
+    // Keep the containing decade open so the list doesn't collapse underfoot.
+    decade = String(Math.floor(+y/10)*10);
+    pendingFocus = `[data-year="${y}"]`;
+    return render();
+  }
+  const plate = t.closest(".plate");
+  if(plate){ openId = plate.dataset.id; return drawDetail(); }
+  if(t.closest("#closeDetail") || t.closest("#scrim")) closeDetail();
+});
+
+/* Every keystroke used to rebuild the spine and every plate. At 200 members
+   that is a few hundred nodes re-parsed per character. One frame of delay
+   costs nothing perceptually and collapses a burst of typing into one render. */
+let qTimer = 0;
+/* A photo can 404: it may not have published yet, someone may have cloned the
+   repo without photos/, or a filename may have changed. Left alone the browser
+   paints its broken-image icon, which looks like the site is failing. Fall back
+   to the placeholder, then to initials. `error` does not bubble, so this
+   listens in the capture phase. */
+document.addEventListener("error", e => {
+  const img = e.target;
+  if(!(img instanceof HTMLImageElement)) return;
+
+  const ph = placeholderPhoto();
+  if(ph && img.dataset.stage !== "placeholder"){
+    img.dataset.stage = "placeholder";
+    img.src = ph;
+    return;                       // if this 404s too, the next error lands below
+  }
+
+  const box = img.parentElement;
+  if(!box) return img.remove();
+  const initials = esc(img.dataset.initials || C.brand.initials || "");
+  // The crest centres bare text; portrait frames expect the styled span.
+  box.innerHTML = box.classList.contains("crest")
+    ? initials
+    : `<span class="initials">${initials}</span>`;
+}, true);
+
+document.getElementById("q").addEventListener("input", e => {
+  query = e.target.value;
+  clearTimeout(qTimer);
+  qTimer = setTimeout(render, 120);
+});
+
+document.getElementById("committee").addEventListener("change", e => { committee = e.target.value; render(); });
+
+document.getElementById("print").addEventListener("click", () => { ensureSheet(); window.print(); });
+// Ctrl/Cmd-P and the browser menu bypass the button.
+window.addEventListener("beforeprint", ensureSheet);
+window.matchMedia?.("print").addEventListener?.("change", e => { if(e.matches) ensureSheet(); });
+
+document.addEventListener("keydown", e => {
+  if(e.key === "Escape") return closeDetail();
+  trapFocus(e);
+
+  // Arrow-key navigation is expected of a tablist.
+  const tab = e.target.closest?.(".tab[data-view]");
+  if(!tab) return;
+  const tabs = [...document.querySelectorAll(".tab[data-view]")];
+  const i = tabs.indexOf(tab);
+  let next = -1;
+  if(e.key === "ArrowRight") next = (i + 1) % tabs.length;
+  else if(e.key === "ArrowLeft") next = (i - 1 + tabs.length) % tabs.length;
+  else if(e.key === "Home") next = 0;
+  else if(e.key === "End") next = tabs.length - 1;
+  if(next >= 0){ e.preventDefault(); selectTab(tabs[next], true); }
+});
+
+boot();
+</script>
+</body>
+</html>

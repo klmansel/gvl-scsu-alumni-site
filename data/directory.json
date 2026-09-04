@@ -1,0 +1,847 @@
+{
+  "generated_at": "2026-08-31T21:00:00Z",
+  "settings": {
+    "site_title": " South Carolina State University National Alumni Association Greenville Chapter",
+    "site_subtitle": "",
+    "founded_year": "1918",
+    "logo_url": "scsgacac_logo.jpg",
+    "membership_form_url": "https://docs.google.com/forms/d/e/1FAIpQLSc3hhMeRCVDRa-g8WLkq-Ix-gj5fgRGoTkwDdfDlzBpFCYBIQ/viewform",
+    "color_primary": "#7A1220",
+    "color_secondary": "#14213D"
+  },
+  "members": [
+    {
+      "id": "otis-bostick-2012-0",
+      "first_name": "Otis",
+      "last_name": "Bostick",
+      "preferred_name": "",
+      "grad_year": "2012",
+      "major": "Accounting",
+      "birth_month": "November",
+      "birth_day": "12",
+      "fun_fact": "Met their spouse in the line at Hodge Hall registration.",
+      "committees": [
+        "Hospitality",
+        "Youth Mentoring"
+      ],
+      "offices": [],
+      "organizations": [
+        "NAACP Youth Council",
+        "Zeta Phi Beta",
+        "Omega Psi Phi"
+      ],
+      "photo": "photos/Screenshot%202026-09-04%20at%203.04.27%E2%80%AFPM.png",
+      "location": "Philadelphia, PA"
+    },
+    {
+      "id": "charmaine-butler-1970-7",
+      "first_name": "Charmaine",
+      "last_name": "Butler",
+      "preferred_name": "",
+      "grad_year": "1970",
+      "major": "Family & Consumer Sciences",
+      "birth_month": "May",
+      "birth_day": "12",
+      "fun_fact": "Met their spouse in the line at Hodge Hall registration.",
+      "committees": [],
+      "offices": [
+        "Secretary"
+      ],
+      "organizations": [
+        "Marching 101",
+        "Omega Psi Phi"
+      ],
+      "photo": "photos/Screenshot%202026-09-04%20at%203.10.14%E2%80%AFPM.png"
+    },
+    {
+      "id": "maurice-butler-1986-10",
+      "first_name": "Maurice",
+      "last_name": "Butler",
+      "preferred_name": "",
+      "grad_year": "1986",
+      "major": "Mathematics",
+      "birth_month": "April",
+      "birth_day": "10",
+      "fun_fact": "Sat in on the 1968 protests and does not tell that story lightly.",
+      "committees": [
+        "Fundraising",
+        "Membership"
+      ],
+      "offices": [
+        "Chaplain"
+      ],
+      "organizations": [],
+      "photo": "photos/Screenshot%202026-09-04%20at%203.04.34%E2%80%AFPM.png",
+      "location": "Greenville, SC"
+    },
+    {
+      "id": "terrence-butler-1975-17",
+      "first_name": "Terrence",
+      "last_name": "Butler",
+      "preferred_name": "",
+      "grad_year": "1975",
+      "major": "Nutritional Sciences",
+      "birth_month": "July",
+      "birth_day": "3",
+      "fun_fact": "Has fed the entire chapter out of one kitchen more than once.",
+      "committees": [
+        "Communications"
+      ],
+      "offices": [],
+      "organizations": [
+        "Kappa Alpha Psi",
+        "Omega Psi Phi"
+      ],
+      "photo": "photos/michelle.jpg",
+      "location": "Brooklyn, NY"
+    },
+    {
+      "id": "nakia-drayton-1993-16",
+      "first_name": "Nakia",
+      "last_name": "Drayton",
+      "preferred_name": "",
+      "grad_year": "1993",
+      "major": "Music Education",
+      "birth_month": "September",
+      "birth_day": "25",
+      "fun_fact": "Started the chapter's first scholarship fund with $40 and a bake sale.",
+      "committees": [
+        "Youth Mentoring",
+        "Membership"
+      ],
+      "offices": [],
+      "organizations": [
+        "Alpha Kappa Alpha",
+        "Concert Choir",
+        "Omega Psi Phi"
+      ],
+      "photo": "photos/Screenshot%202026-09-04%20at%203.10.14%E2%80%AFPM.png",
+      "location": "Philadelphia, PA"
+    },
+    {
+      "id": "marcus-frazier-2014-5",
+      "first_name": "Marcus",
+      "last_name": "Frazier",
+      "preferred_name": "",
+      "grad_year": "2014",
+      "major": "Family & Consumer Sciences",
+      "birth_month": "March",
+      "birth_day": "6",
+      "fun_fact": "Started the chapter's first scholarship fund with $40 and a bake sale.",
+      "committees": [],
+      "offices": [
+        "Parliamentarian"
+      ],
+      "organizations": [
+        "Student Government Association",
+        "Alpha Kappa Alpha"
+      ],
+      "photo": "photos/Screenshot%202026-09-04%20at%203.09.53%E2%80%AFPM.png",
+      "email": "mfrazier@example.com",
+      "location": "Columbia, SC"
+    },
+    {
+      "id": "horace-gadsden-1988-12",
+      "first_name": "Horace",
+      "last_name": "Gadsden",
+      "preferred_name": "",
+      "grad_year": "1988",
+      "major": "Civil Engineering",
+      "birth_month": "December",
+      "birth_day": "6",
+      "fun_fact": "Met their spouse in the line at Hodge Hall registration.",
+      "committees": [
+        "Hospitality",
+        "Fundraising"
+      ],
+      "offices": [],
+      "organizations": [
+        "NAACP Youth Council",
+        "Zeta Phi Beta",
+        "Omega Psi Phi"
+      ],
+      "photo": "photos/Screenshot%202026-09-04%20at%203.09.21%E2%80%AFPM.png",
+      "location": "Washington, DC"
+    },
+    {
+      "id": "kendra-gadsden-1989-24",
+      "first_name": "Kendra",
+      "last_name": "Gadsden",
+      "preferred_name": "",
+      "grad_year": "1989",
+      "major": "Speech Pathology",
+      "birth_month": "January",
+      "birth_day": "11",
+      "fun_fact": "Met their spouse in the line at Hodge Hall registration.",
+      "committees": [],
+      "offices": [],
+      "organizations": [
+        "Phi Beta Sigma"
+      ],
+      "photo": "photos/Screenshot%202026-09-04%20at%203.09.56%E2%80%AFPM.png",
+      "email": "kgadsden@example.com",
+      "phone": "(803) 555-4881"
+    },
+    {
+      "id": "anedra-ivery-1968-33",
+      "first_name": "Anedra",
+      "last_name": "Ivery",
+      "preferred_name": "",
+      "grad_year": "1968",
+      "major": "Marketing",
+      "birth_month": "December",
+      "birth_day": "23",
+      "fun_fact": "Drove eleven hours to see the Bulldogs play and would do it again.",
+      "committees": [],
+      "offices": [
+        "Parliamentarian"
+      ],
+      "organizations": [
+        "Sigma Gamma Rho"
+      ],
+      "photo": "photos/Screenshot%202026-09-04%20at%203.09.56%E2%80%AFPM.png"
+    },
+    {
+      "id": "danielle-ivery-2003-4",
+      "first_name": "Danielle",
+      "last_name": "Ivery",
+      "preferred_name": "",
+      "grad_year": "2003",
+      "major": "Biology",
+      "birth_month": "May",
+      "birth_day": "3",
+      "fun_fact": "Met their spouse in the line at Hodge Hall registration.",
+      "committees": [
+        "Finance"
+      ],
+      "offices": [],
+      "organizations": [
+        "NAACP Youth Council"
+      ],
+      "photo": "photos/Screenshot%202026-09-04%20at%203.09.39%E2%80%AFPM.png",
+      "location": "Jacksonville, FL"
+    },
+    {
+      "id": "roosevelt-ivery-2002-8",
+      "first_name": "Roosevelt",
+      "last_name": "Ivery",
+      "preferred_name": "",
+      "grad_year": "2002",
+      "major": "Biology",
+      "birth_month": "November",
+      "birth_day": "17",
+      "fun_fact": "Coached three state championship teams after graduation.",
+      "committees": [],
+      "offices": [
+        "Sergeant-at-Arms"
+      ],
+      "organizations": [
+        "Delta Sigma Theta",
+        "Alpha Phi Alpha"
+      ],
+      "photo": "photos/michelle.jpg",
+      "email": "rivery@example.com",
+      "location": "Brooklyn, NY"
+    },
+    {
+      "id": "andre-kirkpatrick-1995-26",
+      "first_name": "Andre",
+      "last_name": "Kirkpatrick",
+      "preferred_name": "",
+      "grad_year": "1995",
+      "major": "Speech Pathology",
+      "birth_month": "May",
+      "birth_day": "13",
+      "fun_fact": "Sings lead in the church choir every third Sunday.",
+      "committees": [
+        "Hospitality",
+        "Bylaws"
+      ],
+      "offices": [],
+      "organizations": [
+        "Alpha Kappa Alpha",
+        "Zeta Phi Beta"
+      ],
+      "photo": "photos/michelle.jpg"
+    },
+    {
+      "id": "clarence-lane-2022-30",
+      "first_name": "Clarence",
+      "last_name": "Lane",
+      "preferred_name": "",
+      "grad_year": "2022",
+      "major": "Civil Engineering",
+      "birth_month": "November",
+      "birth_day": "15",
+      "fun_fact": "Reads two books a week and will tell you about both.",
+      "committees": [
+        "Fundraising",
+        "Membership",
+        "Hospitality"
+      ],
+      "offices": [
+        "Parliamentarian"
+      ],
+      "organizations": [
+        "Sigma Gamma Rho"
+      ],
+      "photo": "photos/Screenshot%202026-09-04%20at%203.09.21%E2%80%AFPM.png",
+      "location": "Jacksonville, FL"
+    },
+    {
+      "id": "sharonda-lane-2003-20",
+      "first_name": "Sharonda",
+      "last_name": "Lane",
+      "preferred_name": "",
+      "grad_year": "2003",
+      "major": "Early Childhood Education",
+      "birth_month": "June",
+      "birth_day": "21",
+      "fun_fact": "Met their spouse in the line at Hodge Hall registration.",
+      "committees": [
+        "Scholarship",
+        "Fundraising"
+      ],
+      "offices": [],
+      "organizations": [
+        "ROTC"
+      ],
+      "photo": "photos/Screenshot%202026-09-04%20at%203.04.59%E2%80%AFPM.png",
+      "location": "Charlotte, NC"
+    },
+    {
+      "id": "andre-legare-2005-32",
+      "first_name": "Andre",
+      "last_name": "Legare",
+      "preferred_name": "",
+      "grad_year": "2005",
+      "major": "Family & Consumer Sciences",
+      "birth_month": "January",
+      "birth_day": "2",
+      "fun_fact": "Reads two books a week and will tell you about both.",
+      "committees": [
+        "Bylaws",
+        "Youth Mentoring"
+      ],
+      "offices": [],
+      "organizations": [
+        "Concert Choir",
+        "NAACP Youth Council",
+        "Alpha Kappa Alpha"
+      ],
+      "photo": "photos/Screenshot%202026-09-04%20at%203.09.53%E2%80%AFPM.png",
+      "email": "alegare@example.com",
+      "location": "Washington, DC"
+    },
+    {
+      "id": "reginald-legare-1979-22",
+      "first_name": "Reginald",
+      "last_name": "Legare",
+      "preferred_name": "",
+      "grad_year": "1979",
+      "major": "Nursing",
+      "birth_month": "November",
+      "birth_day": "24",
+      "fun_fact": "Taught in the same district for 31 years before retiring.",
+      "committees": [
+        "Fundraising",
+        "Hospitality",
+        "Youth Mentoring"
+      ],
+      "offices": [
+        "Treasurer"
+      ],
+      "organizations": [
+        "Delta Sigma Theta",
+        "Kappa Alpha Psi",
+        "Alpha Phi Alpha"
+      ],
+      "photo": "photos/Screenshot%202026-09-04%20at%203.09.39%E2%80%AFPM.png",
+      "email": "rlegare@example.com",
+      "phone": "(803) 555-7618"
+    },
+    {
+      "id": "sharonda-mayfield-2011-6",
+      "first_name": "Sharonda",
+      "last_name": "Mayfield",
+      "preferred_name": "",
+      "grad_year": "2011",
+      "major": "Accounting",
+      "birth_month": "October",
+      "birth_day": "28",
+      "fun_fact": "Has fed the entire chapter out of one kitchen more than once.",
+      "committees": [
+        "Bylaws"
+      ],
+      "offices": [],
+      "organizations": [],
+      "photo": "photos/Screenshot%202026-09-04%20at%203.09.56%E2%80%AFPM.png",
+      "email": "smayfield@example.com",
+      "location": "Charleston, SC"
+    },
+    {
+      "id": "reginald-merriman-1976-2",
+      "first_name": "Reginald",
+      "last_name": "Merriman",
+      "preferred_name": "",
+      "grad_year": "1976",
+      "major": "Political Science",
+      "birth_month": "October",
+      "birth_day": "27",
+      "fun_fact": "Sat in on the 1968 protests and does not tell that story lightly.",
+      "committees": [
+        "Youth Mentoring",
+        "Fundraising",
+        "Homecoming"
+      ],
+      "offices": [
+        "Treasurer"
+      ],
+      "organizations": [],
+      "photo": "photos/Screenshot%202026-09-04%20at%203.04.59%E2%80%AFPM.png"
+    },
+    {
+      "id": "marcus-middleton-2018-18",
+      "first_name": "Marcus",
+      "last_name": "Middleton",
+      "preferred_name": "",
+      "grad_year": "2018",
+      "major": "Nutritional Sciences",
+      "birth_month": "November",
+      "birth_day": "12",
+      "fun_fact": "Has fed the entire chapter out of one kitchen more than once.",
+      "committees": [
+        "Bylaws",
+        "Scholarship",
+        "Finance"
+      ],
+      "offices": [],
+      "organizations": [],
+      "photo": "photos/Screenshot%202026-09-04%20at%203.04.27%E2%80%AFPM.png",
+      "email": "mmiddleton@example.com",
+      "phone": "(803) 555-1216"
+    },
+    {
+      "id": "alonzo-mulligan-2020-27",
+      "first_name": "Alonzo",
+      "last_name": "Mulligan",
+      "preferred_name": "",
+      "grad_year": "2020",
+      "major": "Economics",
+      "birth_month": "January",
+      "birth_day": "23",
+      "fun_fact": "Has fed the entire chapter out of one kitchen more than once.",
+      "committees": [
+        "Hospitality",
+        "Community Service"
+      ],
+      "offices": [],
+      "organizations": [
+        "Phi Beta Sigma",
+        "Zeta Phi Beta",
+        "NAACP Youth Council"
+      ],
+      "photo": "photos/Screenshot%202026-09-04%20at%203.04.27%E2%80%AFPM.png",
+      "phone": "(803) 555-8894",
+      "location": "Columbia, SC"
+    },
+    {
+      "id": "latasha-pinckney-2017-28",
+      "first_name": "Latasha",
+      "last_name": "Pinckney",
+      "preferred_name": "",
+      "grad_year": "2017",
+      "major": "Early Childhood Education",
+      "birth_month": "July",
+      "birth_day": "13",
+      "fun_fact": "Opened the first Black-owned pharmacy in their county.",
+      "committees": [
+        "Membership",
+        "Youth Mentoring",
+        "Scholarship"
+      ],
+      "offices": [],
+      "organizations": [],
+      "photo": "photos/Screenshot%202026-09-04%20at%203.04.34%E2%80%AFPM.png",
+      "email": "lpinckney@example.com",
+      "location": "Charlotte, NC"
+    },
+    {
+      "id": "maurice-prioleau-1988-13",
+      "first_name": "Maurice",
+      "last_name": "Prioleau",
+      "preferred_name": "",
+      "grad_year": "1988",
+      "major": "Social Work",
+      "birth_month": "January",
+      "birth_day": "19",
+      "fun_fact": "Named their dog after a former dean. The dean knows.",
+      "committees": [
+        "Community Service",
+        "Finance",
+        "Youth Mentoring"
+      ],
+      "offices": [
+        "Treasurer"
+      ],
+      "organizations": [
+        "Alpha Phi Alpha",
+        "Omega Psi Phi",
+        "Alpha Kappa Alpha"
+      ],
+      "photo": "photos/Screenshot%202026-09-04%20at%203.09.39%E2%80%AFPM.png",
+      "phone": "(803) 555-2060",
+      "location": "Houston, TX"
+    },
+    {
+      "id": "nakia-ravenel-1996-11",
+      "first_name": "Nakia",
+      "last_name": "Ravenel",
+      "preferred_name": "",
+      "grad_year": "1996",
+      "major": "Music Education",
+      "birth_month": "May",
+      "birth_day": "19",
+      "fun_fact": "Sings lead in the church choir every third Sunday.",
+      "committees": [
+        "Membership",
+        "Scholarship"
+      ],
+      "offices": [],
+      "organizations": [
+        "Concert Choir"
+      ],
+      "photo": "photos/Screenshot%202026-09-04%20at%203.04.59%E2%80%AFPM.png",
+      "location": "Greenville, SC"
+    },
+    {
+      "id": "patrice-ravenel-1972-25",
+      "first_name": "Patrice",
+      "last_name": "Ravenel",
+      "preferred_name": "",
+      "grad_year": "1972",
+      "major": "Business Administration",
+      "birth_month": "February",
+      "birth_day": "13",
+      "fun_fact": "Met their spouse in the line at Hodge Hall registration.",
+      "committees": [
+        "Homecoming",
+        "Communications",
+        "Bylaws"
+      ],
+      "offices": [],
+      "organizations": [
+        "Concert Choir",
+        "Sigma Gamma Rho",
+        "NAACP Youth Council"
+      ],
+      "photo": "photos/Screenshot%202026-09-04%20at%203.10.14%E2%80%AFPM.png",
+      "phone": "(803) 555-7352"
+    },
+    {
+      "id": "andre-robinson-1985-19",
+      "first_name": "Andre",
+      "last_name": "Robinson",
+      "preferred_name": "",
+      "grad_year": "1985",
+      "major": "Accounting",
+      "birth_month": "December",
+      "birth_day": "13",
+      "fun_fact": "Sings lead in the church choir every third Sunday.",
+      "committees": [
+        "Community Service",
+        "Bylaws",
+        "Membership"
+      ],
+      "offices": [],
+      "organizations": [
+        "NAACP Youth Council"
+      ],
+      "photo": "photos/Screenshot%202026-09-04%20at%203.04.34%E2%80%AFPM.png",
+      "email": "arobinson@example.com",
+      "location": "Orangeburg, SC"
+    },
+    {
+      "id": "booker-robinson-1992-15",
+      "first_name": "Booker",
+      "last_name": "Robinson",
+      "preferred_name": "",
+      "grad_year": "1992",
+      "major": "Economics",
+      "birth_month": "May",
+      "birth_day": "11",
+      "fun_fact": "Met their spouse in the line at Hodge Hall registration.",
+      "committees": [
+        "Fundraising",
+        "Bylaws",
+        "Communications"
+      ],
+      "offices": [],
+      "organizations": [
+        "Omega Psi Phi",
+        "Alpha Phi Alpha",
+        "NAACP Youth Council"
+      ],
+      "photo": "photos/Screenshot%202026-09-04%20at%203.09.56%E2%80%AFPM.png",
+      "email": "brobinson@example.com",
+      "location": "Charleston, SC"
+    },
+    {
+      "id": "charmaine-robinson-1969-31",
+      "first_name": "Charmaine",
+      "last_name": "Robinson",
+      "preferred_name": "",
+      "grad_year": "1969",
+      "major": "Marketing",
+      "birth_month": "June",
+      "birth_day": "16",
+      "fun_fact": "Ran track and still holds a relay record nobody talks about.",
+      "committees": [],
+      "offices": [],
+      "organizations": [
+        "Omega Psi Phi"
+      ],
+      "photo": "photos/Screenshot%202026-09-04%20at%203.09.39%E2%80%AFPM.png"
+    },
+    {
+      "id": "tamika-robinson-2019-21",
+      "first_name": "Tamika",
+      "last_name": "Robinson",
+      "preferred_name": "",
+      "grad_year": "2019",
+      "major": "English",
+      "birth_month": "February",
+      "birth_day": "27",
+      "fun_fact": "Opened the first Black-owned pharmacy in their county.",
+      "committees": [],
+      "offices": [
+        "Vice President"
+      ],
+      "organizations": [
+        "NAACP Youth Council",
+        "ROTC",
+        "Alpha Kappa Alpha"
+      ],
+      "photo": "photos/Screenshot%202026-09-04%20at%203.09.21%E2%80%AFPM.png"
+    },
+    {
+      "id": "rochelle-sheppard-1988-1",
+      "first_name": "Rochelle",
+      "last_name": "Sheppard",
+      "preferred_name": "",
+      "grad_year": "1988",
+      "major": "Biology",
+      "birth_month": "November",
+      "birth_day": "2",
+      "fun_fact": "Started the chapter's first scholarship fund with $40 and a bake sale.",
+      "committees": [
+        "Membership",
+        "Community Service"
+      ],
+      "offices": [],
+      "organizations": [],
+      "photo": "photos/Screenshot%202026-09-04%20at%203.04.34%E2%80%AFPM.png",
+      "phone": "(803) 555-7308",
+      "location": "Washington, DC"
+    },
+    {
+      "id": "gwendolyn-simmons-2012-23",
+      "first_name": "Gwendolyn",
+      "last_name": "Simmons",
+      "preferred_name": "",
+      "grad_year": "2012",
+      "major": "History",
+      "birth_month": "June",
+      "birth_day": "9",
+      "fun_fact": "Opened the first Black-owned pharmacy in their county.",
+      "committees": [
+        "Communications",
+        "Membership"
+      ],
+      "offices": [],
+      "organizations": [
+        "Alpha Kappa Alpha"
+      ],
+      "photo": "photos/Screenshot%202026-09-04%20at%203.09.53%E2%80%AFPM.png",
+      "email": "gsimmons@example.com",
+      "location": "Philadelphia, PA"
+    },
+    {
+      "id": "horace-simmons-1982-29",
+      "first_name": "Horace",
+      "last_name": "Simmons",
+      "preferred_name": "",
+      "grad_year": "1982",
+      "major": "Computer Science",
+      "birth_month": "April",
+      "birth_day": "28",
+      "fun_fact": "Opened the first Black-owned pharmacy in their county.",
+      "committees": [],
+      "offices": [],
+      "organizations": [],
+      "photo": "photos/Screenshot%202026-09-04%20at%203.04.59%E2%80%AFPM.png"
+    },
+    {
+      "id": "terrence-simmons-1970-14",
+      "first_name": "Terrence",
+      "last_name": "Simmons",
+      "preferred_name": "",
+      "grad_year": "1970",
+      "major": "Accounting",
+      "birth_month": "December",
+      "birth_day": "13",
+      "fun_fact": "Started the chapter's first scholarship fund with $40 and a bake sale.",
+      "committees": [
+        "Scholarship",
+        "Community Service",
+        "Bylaws"
+      ],
+      "offices": [],
+      "organizations": [
+        "NAACP Youth Council",
+        "Concert Choir"
+      ],
+      "photo": "photos/Screenshot%202026-09-04%20at%203.09.53%E2%80%AFPM.png",
+      "email": "tsimmons@example.com",
+      "phone": "(803) 555-7632",
+      "location": "Orangeburg, SC"
+    },
+    {
+      "id": "adrienne-whitaker-1994-9",
+      "first_name": "Adrienne",
+      "last_name": "Whitaker",
+      "preferred_name": "",
+      "grad_year": "1994",
+      "major": "Speech Pathology",
+      "birth_month": "June",
+      "birth_day": "27",
+      "fun_fact": "Retired Air Force. Twenty-four years, six countries.",
+      "committees": [
+        "Community Service",
+        "Youth Mentoring"
+      ],
+      "offices": [],
+      "organizations": [
+        "Marching 101",
+        "NAACP Youth Council"
+      ],
+      "photo": "photos/Screenshot%202026-09-04%20at%203.04.27%E2%80%AFPM.png"
+    },
+    {
+      "id": "reginald-whitaker-2004-3",
+      "first_name": "Reginald",
+      "last_name": "Whitaker",
+      "preferred_name": "",
+      "grad_year": "2004",
+      "major": "English",
+      "birth_month": "March",
+      "birth_day": "22",
+      "fun_fact": "Has fed the entire chapter out of one kitchen more than once.",
+      "committees": [
+        "Hospitality"
+      ],
+      "offices": [],
+      "organizations": [
+        "Alpha Kappa Alpha",
+        "NAACP Youth Council"
+      ],
+      "photo": "photos/Screenshot%202026-09-04%20at%203.09.21%E2%80%AFPM.png",
+      "email": "rwhitaker@example.com",
+      "location": "Brooklyn, NY"
+    }
+  ],
+  "pages": [
+    {
+      "slug": "chapter-bylaws",
+      "title": "Chapter Bylaws",
+      "order": 1,
+      "body": "Adopted March 1974. Last amended October 2023.\n\nARTICLE I. NAME\nThis body shall be known as the Chapter of the National Alumni Association, chartered under the constitution of the parent association.\n\nARTICLE II. PURPOSE\nTo perpetuate the bond between the University and its graduates, to raise and award scholarship funds to deserving students, and to support the University's mission through service and advocacy.\n\nARTICLE III. MEMBERSHIP\nMembership shall be open to all graduates and former students in good standing, and to friends of the University approved by a two-thirds vote."
+    },
+    {
+      "slug": "officers",
+      "title": "Officers",
+      "order": 2,
+      "body": "Officers serve two-year terms beginning July 1 of even-numbered years. Nominations open each spring and are presented to the membership at the April meeting."
+    },
+    {
+      "slug": "membership-levels",
+      "title": "Membership Levels",
+      "order": 3,
+      "body": "Annual — $50. Full voting rights, newsletter, directory listing.\n\nLife — $750, payable in five annual installments. All annual benefits, permanent directory listing, and recognition at the fall banquet.\n\nYoung Alumni — $25. For graduates within five years of commencement.\n\nGolden — Complimentary for graduates of fifty years or more."
+    },
+    {
+      "slug": "committees",
+      "title": "Committees",
+      "order": 4,
+      "body": "Every member is asked to serve on at least one committee. Committees meet between general meetings and report at each monthly gathering."
+    },
+    {
+      "slug": "scholarship",
+      "title": "Scholarship",
+      "order": 5,
+      "body": "The chapter awards two scholarships each spring to graduating seniors from the county who have been admitted to the University. Applications open January 15 and close March 1."
+    },
+    {
+      "slug": "fundraising-teams",
+      "title": "Fundraising Teams",
+      "order": 6,
+      "body": "Fish fry, spring gala, and the Homecoming raffle. Team captains are named each September."
+    },
+    {
+      "slug": "meetings",
+      "title": "Meetings",
+      "order": 7,
+      "body": "General membership meets the second Saturday of each month at 10:00 a.m. Executive board meets the preceding Tuesday at 7:00 p.m. No general meeting in July or December."
+    },
+    {
+      "slug": "chapter-photos",
+      "title": "Chapter Photos",
+      "order": 8,
+      "body": "Photographs from recent chapter events."
+    },
+    {
+      "slug": "special-recognition",
+      "title": "Special Recognition",
+      "order": 9,
+      "body": "Members who have given twenty-five years or more of continuous service, and those we have lost since the last directory was printed."
+    }
+  ],
+  "events": [
+    {
+      "date": "2026-09-12",
+      "title": "Pack the Pantry Collection",
+      "location": "Chapter House",
+      "notes": "Bring non-perishables"
+    },
+    {
+      "date": "2026-10-10",
+      "title": "Homecoming Tailgate",
+      "location": "Stadium Lot C",
+      "notes": "Setup at 8:00 a.m."
+    },
+    {
+      "date": "2026-11-14",
+      "title": "Fall Banquet",
+      "location": "Convention Center",
+      "notes": "Semi-formal, $45 per plate"
+    },
+    {
+      "date": "2027-01-17",
+      "title": "Scholarship Applications Open",
+      "location": "",
+      "notes": ""
+    },
+    {
+      "date": "2027-02-11",
+      "title": "Bulldog Alumni Getaway",
+      "location": "",
+      "notes": "Through February 15"
+    },
+    {
+      "date": "2027-04-11",
+      "title": "Spring Meeting and Elections",
+      "location": "Chapter House",
+      "notes": ""
+    }
+  ]
+}

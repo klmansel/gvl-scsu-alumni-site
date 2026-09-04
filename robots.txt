@@ -1,0 +1,5 @@
+# The directory contains real people. Keep it out of search indexes.
+# This is a courtesy signal, not access control — it stops casual harvesting
+# via search results, nothing more.
+User-agent: *
+Disallow: /
