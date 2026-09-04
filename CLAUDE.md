@@ -43,7 +43,22 @@ Test at scale — swap in the 200-member fixture:
 cp data/directory-200.json data/directory.json
 ```
 
-There is no build, no bundler, no `package.json`, no test suite, and no linter.
+One-time: `npm install` (installs Prettier — only dependency).
+
+```
+npm test       # Node's built-in runner over test/*.js
+npm run lint   # Prettier --check across the linted scope
+npm run format # Prettier --write
+```
+
+CI runs `npm run lint` then `npm test` on every push and PR via
+`.github/workflows/test.yml`.
+
+Prettier's scope is limited by `.prettierignore` — `index.html` (curated,
+compact CSS), `publish.gs` (Apps Script), and markdown are all excluded
+deliberately. Do not remove those entries without asking.
+
+There is no build and no bundler.
 
 ## Architecture
 

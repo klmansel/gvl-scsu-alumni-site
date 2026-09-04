@@ -11,6 +11,25 @@ python3 -m http.server 8000
 Open `localhost:8000`. Double-clicking `index.html` will fail with an explanatory
 error, because browsers block `fetch` on `file://`.
 
+## Tests and linting
+
+One-time setup (installs Prettier):
+
+```
+npm install
+```
+
+Then:
+
+```
+npm test       # runs the Node test suite in test/
+npm run lint   # Prettier check across the linted scope
+npm run format # Prettier auto-fix
+```
+
+GitHub Actions runs `npm run lint` and `npm test` on every push and pull request
+(`.github/workflows/test.yml`).
+
 ## Files
 
 ```
