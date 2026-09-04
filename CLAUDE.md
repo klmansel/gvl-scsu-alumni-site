@@ -6,6 +6,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Public website for a university alumni chapter: chapter info, social links, events calendar, membership form link, and a member directory. Administered by chapter officers through a connected Google Sheet + Apps Script, so non-technical members can make edits without touching code or the repo. Design decisions consistently favor "an officer can do this from the Sheet" over "a developer can do this in code" — keep that bias when suggesting changes.
 
+## Never commit or push — ever
+
+Claude does not run `git commit`, `git push`, `git merge`, or any other command that writes to git history or a remote, under any circumstances. Not for "just this one small change," not after asking for confirmation, not when the user says "go ahead" mid-task. The user runs every commit and every push by hand.
+
+This covers: creating branches on the remote, opening PRs, force-pushing, tag creation/push, and any `gh` subcommand that mutates the repo or its issues/PRs. Local, non-git file edits are fine.
+
+If you think a commit is warranted, describe what should go in it and stop.
+
 ## Never commit PII
 
 No member PII lands in this repo, ever. That includes emails, phone numbers, street addresses, birth years, or any other personal data — even for testing, even in a branch, even "temporarily." Git history is permanent; a private field committed once is committed forever.
@@ -66,6 +74,16 @@ The browser never authenticates or writes. `publish.gs` runs in Apps Script (She
 ### Data schema
 
 Full sheet/column contract lives in `SETUP.md` (Roster, Pages, Events, Settings tabs). `CONFIG.columns` in `config.js` maps sheet headers to internal keys; only touch it if your headers diverge from `SETUP.md`.
+
+## Comment style
+
+Comments should read like they were written for a future reader, not a code reviewer. Keep them lean and drop anything that sounds like conversation with a previous author:
+
+- No changelog narration — "the old code did X", "previously this…", "used to rebuild every keystroke", "before the menu was added". If it matters now, describe the current behavior; if it doesn't, delete it.
+- No specific-person references — "she reviews and flips to active" becomes "an officer flips to active". The comment should still make sense when a different admin owns the Sheet.
+- No sentence fragments left behind from earlier edits, no informal asides ("hairstyle and chins"), no "which is what this restores" pointers.
+- Keep the WHY when it's non-obvious: git-blob permanence, the private-field whitelist, CSS specificity gotchas, the capture-phase listener for `error`. Those are load-bearing.
+- Default to one tight line; a paragraph is only justified for a real invariant.
 
 ## Publishing this repo
 

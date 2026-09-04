@@ -13,12 +13,9 @@ const fs = require("fs");
 const path = require("path");
 
 /**
- * Any image dropped into photos/ is cycled across the roster. Drop in three
- * pictures and every third member gets each one; drop in none and everybody
- * keeps their initials. Nothing to wire up per member.
- *
- * The real publisher writes photos/<member-id>.jpg from the Sheet, so this
- * only ever fills in sample data.
+ * Any image in photos/ is cycled across the sample roster; empty means every
+ * member falls back to initials. publish.gs writes photos/<member-id>.jpg in
+ * real use — this only touches sample data.
  */
 function availablePhotos() {
   try {
@@ -148,8 +145,7 @@ function member(i) {
     photo: PHOTOS.length ? PHOTOS[i % PHOTOS.length] : "",
   };
 
-  // A minority opt in to showing contact details. Matches real-world behavior.
-  // Omitted entirely rather than set to "", so this matches what publish.gs emits.
+  // Opt-in contact fields are omitted (not "") to match publish.gs output.
   if (rand() < 0.35) m.email = `${first[0].toLowerCase()}${last.toLowerCase()}@example.com`;
   if (rand() < 0.20) m.phone = `(803) 555-${String(int(9000) + 1000).padStart(4, "0")}`;
   if (rand() < 0.60) m.location = `${city}, ${state}`;
@@ -221,7 +217,7 @@ console.error(
 process.stdout.write(JSON.stringify({
   generated_at: "2026-08-31T21:00:00Z",
   settings: {
-    site_title: " South Carolina State University National Alumni Association Greenville Chapter",
+    site_title: "South Carolina State University National Alumni Association Greenville Chapter",
     site_subtitle: "",
     founded_year: "1918",
     logo_url: "scsgacac_logo.jpg",

@@ -66,7 +66,10 @@ const CONFIG = {
      2. BRANDING
      ------------------------------------------------------------------ */
   brand: {
-    title: " South Carolina State University National Alumni Association Greenville Chapter",
+    title: "South Carolina State University National Alumni Association Greenville Chapter",
+    // Shown in the browser tab and when the link is shared. The full name
+    // above is too long for either. Falls back to title if left blank.
+    shortTitle: "SCSUNAA Greenville",
     subtitle: "",
     foundedYear: "1918",
 

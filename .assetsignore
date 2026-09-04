@@ -1,0 +1,10 @@
+publish.gs
+SETUP.md
+README.md
+CLAUDE.md
+seed.js
+wrangler.jsonc
+.assetsignore
+.gitignore
+.git
+.DS_Store

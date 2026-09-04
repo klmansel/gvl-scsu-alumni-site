@@ -18,12 +18,43 @@
   connect-src 'self' https://sheets.googleapis.com https://docs.google.com https://script.google.com https://script.googleusercontent.com;
   base-uri 'none';
   form-action 'none'">
-<title> South Carolina State University National Alumni Association Greenville Chapter</title>
+<title>SCSUNAA Greenville</title>
 <link rel="icon" type="image/jpeg" href="scsgacac_logo.jpg">
 <link rel="apple-touch-icon" href="scsgacac_logo.jpg">
+
+<!-- Preview crawlers don't run JavaScript, so unlike the rest of the branding
+     these can't come from config.js, and og:image must be absolute or no image
+     appears. TODO: Update the URLs for a custom domain. noindex doesn't suppress
+     link previews. -->
+<link rel="canonical" href="https://klmansel.github.io/gvl-scsu-alumni-site/">
+<meta name="description" content="Member directory of the South Carolina State University National Alumni Association, Greenville Chapter. Founded 1918.">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="South Carolina State University National Alumni Association Greenville Chapter">
+<meta property="og:title" content="SCSUNAA Greenville">
+<meta property="og:description" content="Member directory of the South Carolina State University National Alumni Association, Greenville Chapter. Founded 1918.">
+<meta property="og:url" content="https://klmansel.github.io/gvl-scsu-alumni-site/">
+<meta property="og:image" content="https://klmansel.github.io/gvl-scsu-alumni-site/og-card.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Seal of the Greenville Alumni Chapter beside the chapter name">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="SCSUNAA Greenville">
+<meta name="twitter:description" content="Member directory of the South Carolina State University National Alumni Association, Greenville Chapter. Founded 1918.">
+<meta name="twitter:image" content="https://klmansel.github.io/gvl-scsu-alumni-site/og-card.jpg">
+<meta name="twitter:image:alt" content="Seal of the Greenville Alumni Chapter beside the chapter name">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Archivo:wght@400;600;700&display=swap" rel="stylesheet">
+<!-- The font stylesheet blocks first paint for as long as it takes to arrive
+     (~940ms on a cold cache), and every rule in it is decorative: the page
+     is fully readable in Georgia and system-ui until it lands. media="print"
+     makes the browser fetch it without blocking, then the onload flips it to
+     apply. The URL already carries display=swap, so text never goes invisible
+     waiting on the woff2 files. -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&amp;family=Archivo:wght@400;600;700&amp;display=swap" media="print" onload="this.media='all';this.onload=null">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&amp;family=Archivo:wght@400;600;700&amp;display=swap"></noscript>
 <style>
 :root{
   --garnet:#7A1220; --garnet-deep:#570C16;
@@ -74,10 +105,8 @@ button{font:inherit;cursor:pointer}
   border:1px solid rgba(255,255,255,.35);text-decoration:none}
 .social-link:hover{background:#fff;color:var(--navy);border-color:#fff}
 .social-link svg{width:20px;height:20px;display:block}
-/* At 390px the h1 clamp pins to its 23px floor (3.6vw is only 14px there), and
-   an 88px crest plus a 320px title basis cannot share a 350px line, so the
-   crest ends up on a row of its own above the title and the masthead runs
-   293px before any content. Shrinking both lets them sit side by side. */
+/* Below ~820px the desktop crest+title basis can no longer share a line and
+   wraps into a tall two-row masthead. Shrink both so they stay side by side. */
 @media(max-width:820px){
   .masthead{padding:14px 16px 12px}
   .masthead-in{gap:12px}
@@ -108,20 +137,16 @@ select.filter{padding:11px 12px;border:1px solid var(--line);background:var(--pa
 .join-btn{padding:9px 16px;border:1px solid var(--garnet);background:var(--plate);
   color:var(--garnet);font-weight:600;font-size:14px;text-decoration:none;white-space:nowrap}
 .join-btn:hover{background:var(--garnet);color:#fff}
-/* The overflow menu exists only on narrow screens. Above 820px the panel
-   dissolves with display:contents and its children stay direct flex items of
-   .bar-in, so the desktop toolbar is laid out exactly as it was before the menu
-   was added. Visibility is a class, never the hidden attribute: the
-   [hidden]{display:none!important} rule above would beat display:contents and
-   take the filter and print button off the desktop toolbar with it. */
+/* Overflow menu is narrow-screen only. Above 820px the panel uses
+   display:contents so its children remain direct flex items of .bar-in.
+   Toggle visibility with a class, never [hidden] — the [hidden]{!important}
+   rule above would beat display:contents. */
 .barmenu-btn{display:none}
 .barmenu-panel{display:contents}
 .join-short{display:none}
-/* The print button sits next to the committee filter in the markup so the two
-   can share the phone dropdown. On desktop it belongs at the far right instead,
-   which is what this restores. Print is the one control whose tab position ends
-   up ahead of its visual position; putting the shuffle here rather than on the
-   committee filter keeps the frequently used controls in reading order. */
+/* Print sits by the committee filter in markup so both fold into the phone
+   dropdown. On desktop it belongs at the far right, which `order:1` restores
+   without disturbing the reading order of the more frequently used controls. */
 @media(min-width:821px){.print-btn{order:1}}
 /* Search, filter, tabs, join and print all wrap into four stacked rows on a
    phone: 224px of toolbar that is position:sticky, so it sits on 27% of an
@@ -183,11 +208,8 @@ select.filter{padding:11px 12px;border:1px solid var(--line);background:var(--pa
 .year[aria-pressed="true"]{background:var(--garnet);color:#fff;font-weight:600}
 .year .n{float:right;opacity:.65;font-size:12px}
 .year[aria-pressed="true"] .n{opacity:1;font-weight:400}
-/* The chip spine is the desktop control. On a phone it was the worst offender
-   on the page: seven wrapping decade chips already cost ~112px collapsed, and
-   expanding one pushed the first member down past 900px. A native select does
-   the same two-level job in one 46px row, and hands the phone its own picker
-   UI instead of a wall of buttons. */
+/* Desktop uses the chip spine; a phone gets the same two-level (decade, year)
+   navigation as a native <select>, which costs one row instead of several. */
 .spine-pick{display:none}
 @media(max-width:820px){
   .spine{position:static;max-height:none;overflow:visible;padding:0}
@@ -202,22 +224,14 @@ select.filter{padding:11px 12px;border:1px solid var(--line);background:var(--pa
 
 .count{font-size:13px;color:var(--ink-soft);margin:0 0 14px}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:18px 16px}
-/* Two columns put 170x212 portraits on a phone and only two rows on screen.
-   Three columns at the same 4:5 ratio shows three full rows with a fourth
-   starting, and a ~110px card still carries the name, class year, major and
-   office badge legibly. The ratio stays 4:5 on purpose: a square crop is a
-   little denser, but object-fit:cover on a taller headshot clips foreheads
-   and chins. */
+/* Three columns put three rows of members above the fold on a phone. The 4:5
+   ratio is deliberate: object-fit:cover on a square crop cuts off portraits. */
 @media(max-width:560px){.grid{grid-template-columns:repeat(3,1fr);gap:14px 9px}}
 /* Below ~360px a third column leaves too little room for a name to wrap. */
 @media(max-width:359px){.grid{grid-template-columns:repeat(2,1fr)}}
-/* A <button> vertically centres its own content when something stretches it
-   taller than that content needs, which is exactly what a grid row does. That
-   is what knocked the portraits out of line: a card with a two-line name or an
-   office badge is taller, the row grows to match, and every shorter card in
-   that row floated its portrait down to the middle. Declaring the button an
-   explicit flex column opts out of that centring, so content starts at the top
-   edge of every card and the portraits share one baseline. */
+/* Button default centring vs. grid-row stretch drops shorter cards' portraits
+   to the middle of their row. Declaring an explicit flex column opts out, so
+   every portrait aligns to the top edge of its card. */
 .plate{border:0;padding:0;background:transparent;text-align:left;
   display:flex;flex-direction:column;width:100%}
 .portrait{aspect-ratio:4/5;width:100%;background:var(--navy);display:grid;place-items:center;overflow:hidden}
@@ -234,10 +248,8 @@ select.filter{padding:11px 12px;border:1px solid var(--line);background:var(--pa
 .plate-meta+.plate-office{padding-top:2px;margin-top:auto}
 .plate-meta{margin-bottom:7px}
 .plate:hover .plate-name{color:var(--garnet)}
-/* Card type for the three-column phone grid. This has to sit after the .plate-*
-   rules above, not up beside the .grid query: a media query adds no specificity,
-   so the later base rule would otherwise win and the cards would keep their
-   desktop type at a third of the width. */
+/* Must follow the .plate-* rules: a media query adds no specificity, so the
+   later base rule wins and cards keep desktop type at a third the width. */
 @media(max-width:560px){
   .plate-name{font-size:15px;margin:6px 0 1px}
   .plate-meta{font-size:11.5px;line-height:1.3;margin-bottom:6px}
@@ -349,7 +361,7 @@ select.filter{padding:11px 12px;border:1px solid var(--line);background:var(--pa
 <header class="masthead">
   <div class="masthead-in">
     <div class="crest" id="crest"></div>
-    <div class="titleblock"><h1 id="siteTitle"> South Carolina State University National Alumni Association Greenville Chapter</h1><p id="siteSub"></p></div>
+    <div class="titleblock"><h1 id="siteTitle">South Carolina State University National Alumni Association Greenville Chapter</h1><p id="siteSub"></p></div>
     <div class="est" id="est"></div>
 
     <div class="social" id="social" hidden>
@@ -556,12 +568,9 @@ function mapMember(r){
 const splitList = v => !v ? [] :
   String(v).split(/[,;]/).map(s => s.trim()).filter(Boolean);
 
-/* Sheet sources store a Drive share URL, which a browser cannot render as an
-   image. Turn it into the thumbnail endpoint at the same 600px the publisher
-   uses. Note this only loads if the Drive file is shared "anyone with the
-   link"; the json/apps-script sources avoid the problem by committing the
-   image itself. Non-Drive URLs pass through untouched, anything else is
-   dropped so a javascript: or data: value can never reach an src. */
+/* Rewrites a Drive share URL to the 600px thumbnail endpoint (requires file
+   shared "anyone with the link"). Non-Drive URLs pass through safeUrl;
+   anything else is dropped so javascript:/data: values can't reach an src. */
 const driveThumb = v => {
   const t = String(v ?? "").trim();
   if(!t) return "";
@@ -622,7 +631,8 @@ function portraitInner(m, opts = {}){
   if(!src) return `<span class="initials">${initials}</span>`;
   const alt = opts.decorative ? "" : esc(nameOf(m));
   return `<img src="${esc(src)}" alt="${alt}" data-initials="${initials}"` +
-         `${opts.lazy ? ` loading="lazy"` : ""} decoding="async">`;
+         `${opts.lazy ? ` loading="lazy"` : ""}` +
+         `${opts.priority ? ` fetchpriority="high"` : ""} decoding="async">`;
 }
 const initialsOf = m => (m.first_name?.[0] || "") + (m.last_name?.[0] || "");
 
@@ -640,7 +650,9 @@ function applyBrand(settings = {}){
   const logo = safeUrl(settings.logo_url || b.logoUrl);
   const joinUrl = safeUrl(settings.membership_form_url || C.links?.membershipForm || "");
 
-  document.title = title;
+  // The tab is a narrow space and the masthead is not, so they get separate
+  // strings. Sheet settings still win over config.js, as everywhere else.
+  document.title = settings.site_short_title || b.shortTitle || title;
   document.getElementById("siteTitle").textContent = title;
   document.getElementById("siteSub").textContent = sub || "";
   document.getElementById("est").textContent = est ? "Est. " + est : "";
@@ -723,9 +735,8 @@ async function refresh(){
   }catch(e){ /* keep showing the last good data */ }
 }
 
-/* Everything derived from DATA. Cleared whenever DATA is replaced, so a
-   keystroke in the search box re-filters but does not re-walk 200 members to
-   recount class years or rebuild a 200-plate print document. */
+/* Caches derived from DATA. Cleared on every DATA replacement so a live
+   refresh doesn't render against a stale year index or print grid. */
 let yearIndex = null, sheetBuilt = false;
 
 function invalidate(){ yearIndex = null; sheetBuilt = false; }
@@ -833,9 +844,16 @@ function spineHtml(){
   </nav>`;
 }
 
-function plateHtml(m){
+/* Roughly the first two rows on a phone and the first row on a desktop. These
+   are on screen at load, so lazy-loading them only delays the largest paint:
+   the browser has to finish layout before it will even start the request. The
+   rest of the roster stays lazy. */
+const EAGER_PLATES = 8;
+
+function plateHtml(m, i){
+  const eager = i < EAGER_PLATES;
   return `<button class="plate" data-id="${esc(m.id)}">
-    <div class="portrait">${portraitInner(m, {lazy: true})}</div>
+    <div class="portrait">${portraitInner(m, {lazy: !eager, priority: i === 0})}</div>
     <div class="rule"></div>
     <div class="plate-name">${esc(nameOf(m))}</div>
     <div class="plate-meta">${esc(m.grad_year)}${m.major ? " &middot; " + esc(m.major) : ""}</div>
@@ -1077,9 +1095,8 @@ function selectTab(tab, moveFocus){
   render();
 }
 
-/* The narrow-screen overflow menu. Above 820px the panel is display:contents and
-   the button is display:none, so none of this has any effect on desktop: the
-   class is set and cleared, but nothing is listening to it. */
+/* Narrow-screen overflow menu only. Above 820px the panel is display:contents
+   and the button is display:none, so these state changes are inert. */
 const barmenuBtn = document.getElementById("barmenu");
 const barmenuPanel = document.getElementById("barmenu-panel");
 const barmenuOpen = () => barmenuPanel.classList.contains("open");
@@ -1129,15 +1146,12 @@ document.addEventListener("click", e => {
   if(t.closest("#closeDetail") || t.closest("#scrim")) closeDetail();
 });
 
-/* Every keystroke used to rebuild the spine and every plate. At 200 members
-   that is a few hundred nodes re-parsed per character. One frame of delay
-   costs nothing perceptually and collapses a burst of typing into one render. */
+/* Debounced so a burst of keystrokes collapses into one render — searching
+   over 200 members otherwise re-parses hundreds of nodes per character. */
 let qTimer = 0;
-/* A photo can 404: it may not have published yet, someone may have cloned the
-   repo without photos/, or a filename may have changed. Left alone the browser
-   paints its broken-image icon, which looks like the site is failing. Fall back
-   to the placeholder, then to initials. `error` does not bubble, so this
-   listens in the capture phase. */
+/* Photos can 404 (not published yet, cloned without photos/, renamed file).
+   Fall back to the configured placeholder, then to initials. `error` does not
+   bubble, so this listens in the capture phase. */
 document.addEventListener("error", e => {
   const img = e.target;
   if(!(img instanceof HTMLImageElement)) return;
