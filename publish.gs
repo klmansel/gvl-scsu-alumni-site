@@ -74,10 +74,8 @@ function scheduledPublish() {
 }
 
 /**
- * One-shot continuation for a photo backlog. Deletes itself first: Apps Script
- * caps a project at 20 triggers, and the old code created a new one on every
- * batch without ever removing it, so a first run with a full roster would
- * quietly wedge the project at the limit.
+ * One-shot continuation for a photo backlog. Deletes itself first so a long
+ * backfill can't accumulate against Apps Script's 20-trigger cap.
  */
 function photoCatchUp() {
   clearPhotoTriggers();
@@ -91,11 +89,7 @@ function clearPhotoTriggers() {
   });
 }
 
-/**
- * Form submissions land as status=pending. They do NOT auto-publish.
- * She reviews and flips to active. That's your spam filter and your
- * editorial control in one move.
- */
+/** Form submissions land as status=pending; an officer flips to active to publish. */
 function onFormSubmit() {
   syncFormResponses();
 }
@@ -227,9 +221,8 @@ function syncPhotos(rows) {
     const active = String(r.status).toLowerCase() === 'active';
     const fileId = extractDriveId(r.photo_file_id);
 
-    // A member set to hidden, or one who removed their photo, previously left
-    // their portrait sitting at photos/<id>.jpg where anyone could still fetch
-    // it directly. Take it down.
+    // Hidden or photo-cleared members: retire the published portrait so it
+    // can't be fetched directly at photos/<id>.jpg.
     if (published && (!active || !fileId)) {
       stale.push({ rowIndex: rowIndex, id: id });
       return;
@@ -266,10 +259,7 @@ function syncPhotos(rows) {
   return remaining;
 }
 
-/**
- * Drive's thumbnail endpoint resizes for free. Beats pulling a 4MB phone photo
- * and shipping it to 200 people on cell data.
- */
+/** Drive's thumbnail endpoint resizes server-side, avoiding multi-MB originals. */
 function fetchThumbnail(fileId) {
   const url = 'https://drive.google.com/thumbnail?id=' + fileId + '&sz=w' + CFG.PHOTO_WIDTH;
   const res = UrlFetchApp.fetch(url, {
@@ -286,9 +276,8 @@ function fetchThumbnail(fileId) {
 }
 
 /**
- * Committing a 5MB original is not recoverable: it is in the repo's history
- * permanently and every clone pays for it forever. Fail the one photo loudly
- * instead. The caller logs it and the rest of the batch continues.
+ * Refuse oversized blobs. Git history is permanent, so a committed 5MB
+ * original bloats every clone forever — fail the one photo loudly instead.
  */
 function encodeCapped(blob, fileId) {
   const bytes = blob.getBytes();
@@ -363,10 +352,8 @@ function putFile(path, base64Content, message) {
 }
 
 /**
- * Removes a file from the published site. Note this deletes it from the branch
- * tip only. The blob stays in git history and can still be fetched by anyone
- * who knows the commit sha. If a member asks for a photo to be erased outright,
- * that requires rewriting history or deleting the repo.
+ * Removes a file from the branch tip. The blob stays in git history; erasing
+ * a photo entirely requires rewriting history or deleting the repo.
  */
 function deleteFile(path, message) {
   const sha = getSha(path);
@@ -394,17 +381,10 @@ function deleteFile(path, message) {
 const ADMIN_COLUMNS = ['status', 'id', 'committees', 'offices', 'photo_published_id'];
 
 /**
- * Copies new form responses into Roster as status=pending.
- * Matches on email so a member editing their response updates their row
- * instead of creating a duplicate.
- *
- * This reads the roster once and writes it once. The previous version issued a
- * setValues() per response plus five getValue() round-trips to re-read the
- * admin columns, so a 200-member roster meant well over a thousand Sheets
- * calls on every single form submit and would eventually hit the six-minute
- * execution limit. It also rewrote every row whether or not anything had
- * changed; now only genuinely changed rows are touched, which keeps
- * last_updated meaningful.
+ * Copies new form responses into Roster as status=pending, matching on email
+ * so a re-submission updates the existing row instead of duplicating it.
+ * Reads and writes the roster once per run, and only touches rows whose
+ * values actually changed so last_updated stays meaningful.
  */
 function syncFormResponses() {
   const formTab = SpreadsheetApp.getActive().getSheets().filter(function (s) {
@@ -480,9 +460,8 @@ function syncFormResponses() {
 }
 
 /**
- * Edit the left-hand strings to match your Google Form question titles exactly.
- * readTab() lowercases and underscores them, so "Graduation Year" is grad_year
- * only if you name the question that way. Easier to just map it here.
+ * Right-hand keys must match Google Form question titles after normalization
+ * (lowercased, non-alphanumerics collapsed to underscores).
  */
 function mapFormResponse(r) {
   return {

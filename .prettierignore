@@ -1,0 +1,23 @@
+# Hand-tuned. Prettier would explode the compact CSS and reflow the giant
+# inline script; the intentional formatting is more valuable than uniformity.
+index.html
+
+# Apps Script runtime, not Node/browser. Leave its style to Google's editor.
+publish.gs
+
+# Markdown across the repo uses intentional layout (tables, hard wraps, code
+# fences). Skip unless we choose to opt in file-by-file.
+*.md
+!.github/**/*.md
+
+# Publisher output, not authored code.
+data/
+
+# Not authored / not code.
+photos/
+node_modules/
+.git/
+.DS_Store
+scsgacac_logo.jpg
+og-card.jpg
+LICENSE.md

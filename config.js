@@ -4,20 +4,19 @@
    ========================================================================== */
 
 const CONFIG = {
-
   /* --------------------------------------------------------------------
      1. WHERE THE DATA COMES FROM
      Set `source` to one of: "json" | "sheets-csv" | "sheets-api" | "apps-script"
      ------------------------------------------------------------------ */
 
-  source: "json",
+  source: 'json',
 
   /* ---- Option A: "json" (default, recommended) -----------------------
      A static file this repo serves. Apps Script writes it from the Sheet.
      Nothing private ever reaches the browser because the publisher strips
      it server-side. No key needed.                                       */
   json: {
-    url: "data/directory.json",
+    url: 'data/directory.json',
   },
 
   /* ---- Option B: "sheets-csv" ----------------------------------------
@@ -28,10 +27,10 @@ const CONFIG = {
      publish a tab that has email, phone, or address on it.                */
   sheetsCsv: {
     // From the publish dialog URL: .../d/e/THIS_PART/pub?...
-    publishedId: "PASTE_PUBLISHED_ID_HERE",
-    rosterGid: "0",          // tab gid, from the URL after #gid=
-    pagesGid: "",            // optional
-    eventsGid: "",           // optional
+    publishedId: 'PASTE_PUBLISHED_ID_HERE',
+    rosterGid: '0', // tab gid, from the URL after #gid=
+    pagesGid: '', // optional
+    eventsGid: '', // optional
   },
 
   /* ---- Option C: "sheets-api" ----------------------------------------
@@ -46,11 +45,11 @@ const CONFIG = {
      create an API key, restrict it to Sheets API + your domain. Then set
      the spreadsheet to "Anyone with the link can view".                   */
   sheetsApi: {
-    apiKey: "PASTE_API_KEY_HERE",
-    spreadsheetId: "PASTE_SPREADSHEET_ID_HERE",
-    rosterRange: "Roster!A:Z",
-    pagesRange: "Pages!A:E",
-    eventsRange: "Events!A:D",
+    apiKey: 'PASTE_API_KEY_HERE',
+    spreadsheetId: 'PASTE_SPREADSHEET_ID_HERE',
+    rosterRange: 'Roster!A:Z',
+    pagesRange: 'Pages!A:E',
+    eventsRange: 'Events!A:D',
   },
 
   /* ---- Option D: "apps-script" ---------------------------------------
@@ -59,35 +58,38 @@ const CONFIG = {
      decides what to expose. Best option if you want live reads without
      publishing a spreadsheet.                                             */
   appsScript: {
-    url: "PASTE_WEB_APP_URL_HERE",
+    url: 'PASTE_WEB_APP_URL_HERE',
   },
 
   /* --------------------------------------------------------------------
      2. BRANDING
      ------------------------------------------------------------------ */
   brand: {
-    title: " South Carolina State University National Alumni Association Greenville Chapter",
-    subtitle: "",
-    foundedYear: "1918",
+    title: 'South Carolina State University National Alumni Association Greenville Chapter',
+    // Shown in the browser tab and when the link is shared. The full name
+    // above is too long for either. Falls back to title if left blank.
+    shortTitle: 'SCSUNAA Greenville',
+    subtitle: '',
+    foundedYear: '1918',
 
     // Garnet and blue. Replace with the chapter's official values if you
     // have them; the university's published brand guide is the source of
     // truth, not the color-code aggregator sites.
-    primary: "#7A1220",     // garnet
-    secondary: "#14213D",   // navy
+    primary: '#7A1220', // garnet
+    secondary: '#14213D', // navy
 
     // Path or full URL to a logo. Leave "" to show initials instead.
     // The chapter seal. It's round on a white field, so the crest renders as a
     // white disc rather than the garnet square used for the initials fallback.
-    logoUrl: "scsgacac_logo.jpg",
+    logoUrl: 'scsgacac_logo.jpg',
     // Shown if the logo fails to load, and on member photo placeholders.
-    initials: "SCSU",
+    initials: 'SCSU',
 
     // Stand-in for members with no photo yet, and the fallback when a photo
     // fails to load. Put it at the repo root, not in photos/ — that directory
     // is gitignored and is managed by the publisher. Leave "" to show the
     // member's initials instead.
-    placeholderPhoto: "",
+    placeholderPhoto: '',
   },
 
   /* --------------------------------------------------------------------
@@ -99,15 +101,15 @@ const CONFIG = {
   links: {
     // The Google Form members fill in to join or update their listing.
     membershipForm:
-      "https://docs.google.com/forms/d/e/1FAIpQLSc3hhMeRCVDRa-g8WLkq-Ix-gj5fgRGoTkwDdfDlzBpFCYBIQ/viewform",
+      'https://docs.google.com/forms/d/e/1FAIpQLSc3hhMeRCVDRa-g8WLkq-Ix-gj5fgRGoTkwDdfDlzBpFCYBIQ/viewform',
 
     // The parent organization. Shown in the site footer and on the print
     // cover. Leave "" to hide the footer entirely.
-    nationalAssociation: "https://www.scsunaa.org/",
+    nationalAssociation: 'https://www.scsunaa.org/',
 
     // Social accounts, shown as icons in the header.
-    facebook: "https://www.facebook.com/scstategreenvillealumni",
-    instagram: "https://www.instagram.com/greenvillescsunaa/",
+    facebook: 'https://www.facebook.com/scstategreenvillealumni',
+    instagram: 'https://www.instagram.com/greenvillescsunaa/',
   },
 
   /* --------------------------------------------------------------------
@@ -117,7 +119,7 @@ const CONFIG = {
     // Set false to hide birthdays everywhere, including print.
     showBirthdays: true,
     // Members with status other than these are never rendered.
-    visibleStatuses: ["active"],
+    visibleStatuses: ['active'],
     // Members per page in the printed roster grid (3 across reads well).
     printColumns: 3,
     // Refresh interval in minutes for live sources. 0 disables.
@@ -132,30 +134,30 @@ const CONFIG = {
      normalized (lowercased, spaces to underscores) before matching.
      ------------------------------------------------------------------ */
   columns: {
-    id: "id",
-    status: "status",
-    firstName: "first_name",
-    lastName: "last_name",
-    preferredName: "preferred_name",
-    gradYear: "grad_year",
-    major: "major",
-    birthMonth: "birth_month",
-    birthDay: "birth_day",
-    funFact: "fun_fact",
-    committees: "committees",
-    offices: "offices",
-    organizations: "organizations",
+    id: 'id',
+    status: 'status',
+    firstName: 'first_name',
+    lastName: 'last_name',
+    preferredName: 'preferred_name',
+    gradYear: 'grad_year',
+    major: 'major',
+    birthMonth: 'birth_month',
+    birthDay: 'birth_day',
+    funFact: 'fun_fact',
+    committees: 'committees',
+    offices: 'offices',
+    organizations: 'organizations',
     // Sheet sources only. If this column holds a Drive share URL, it is
     // rewritten to Drive's 600px thumbnail endpoint, which requires the file
     // to be shared "anyone with the link". Falls back to `photo_file_id`.
     // The json and apps-script sources ignore this and use the committed image.
-    photo: "photo",
-    email: "email",
-    phone: "phone",
-    city: "city",
-    state: "state",
-    showEmail: "show_email",
-    showPhone: "show_phone",
-    showCity: "show_city",
+    photo: 'photo',
+    email: 'email',
+    phone: 'phone',
+    city: 'city',
+    state: 'state',
+    showEmail: 'show_email',
+    showPhone: 'show_phone',
+    showCity: 'show_city',
   },
 };

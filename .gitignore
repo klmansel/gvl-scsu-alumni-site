@@ -8,13 +8,9 @@ node_modules/
 *.xlsx
 private/
 
-# Member portraits. These are real people's faces, and a commit is permanent:
-# git keeps every blob forever, so "remove the photo" later means rewriting
-# history. Keep them out of the repo and let the publisher manage them.
-#
-# NOTE: this only stops *local* commits. publish.gs writes photos through the
-# GitHub Contents API, which does not consult .gitignore. If member photos
-# should never be public at all, that is a repo-visibility decision, not a
-# .gitignore one — see "Before you make the repo public" in README.md.
+# Member portraits. Git blobs are permanent — keep local copies out of the
+# repo and let publish.gs manage them via the GitHub API. This only stops
+# *local* commits; the API path does not consult .gitignore. See README.md
+# "Before you make the repo public" for the repo-visibility trade-offs.
 photos/*
 !photos/.gitkeep
