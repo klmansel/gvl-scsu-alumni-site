@@ -310,6 +310,29 @@ select.filter{padding:11px 12px;border:1px solid var(--line);background:var(--pa
 .evt{display:grid;grid-template-columns:104px 1fr;gap:14px;padding:13px 0;border-bottom:1px solid var(--line)}
 .evt time{font-family:Newsreader,serif;font-size:15px;color:var(--garnet);font-variant-numeric:tabular-nums}
 .evt small{color:var(--ink-soft);display:block}
+.evt-actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.evt-add{display:inline-block;font-size:12px;padding:5px 10px;
+  border:1px solid var(--garnet);color:var(--garnet);background:transparent;
+  text-decoration:none;font-family:Archivo,sans-serif;font-weight:600;cursor:pointer;letter-spacing:.02em}
+.evt-add:hover{background:var(--garnet);color:#fff}
+
+/* Birthday strip. Only rendered on the directory view when at least one
+   member has a birthday in the current month. */
+.bdays{border:1px solid var(--line);background:var(--plate);
+  padding:12px 14px;margin:0 0 16px;font-size:14px}
+.bdays-h{display:block;font-family:Newsreader,serif;font-size:16px;
+  color:var(--garnet);margin-bottom:6px;font-weight:500}
+.bday{border:0;background:transparent;padding:3px 6px 3px 0;margin:0 4px 2px 0;
+  color:var(--ink);cursor:pointer;font-size:14px;font-family:inherit}
+.bday+.bday{border-left:1px solid var(--line);padding-left:10px}
+.bday:hover{color:var(--garnet)}
+.bday-d{color:var(--ink-soft);font-variant-numeric:tabular-nums;font-size:12px;margin-left:3px}
+
+/* View Transitions. Supported browsers (Chrome/Edge/Safari 18+) get a soft
+   crossfade between renders. Firefox falls through to the JS fallback. */
+@media (prefers-reduced-motion: no-preference){
+  ::view-transition-old(root),::view-transition-new(root){animation-duration:220ms}
+}
 
 .foot{border-top:1px solid var(--line);background:var(--plate)}
 .foot-in{max-width:1240px;margin:0 auto;padding:24px 20px;font-size:14px;color:var(--ink-soft)}
@@ -599,6 +622,85 @@ const safeColor = (v, fallback) => {
 };
 const isYes = v => /^(yes|true|y|x|1|checked)$/i.test(String(v ?? "").trim());
 const slugify = s => String(s).toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
+
+/* Progressive enhancement — supported browsers (Chrome/Edge/Safari 18+) get a
+   soft crossfade on major state changes. Firefox / reduced-motion get instant. */
+const withTransition = fn => {
+  if(document.startViewTransition &&
+     !matchMedia("(prefers-reduced-motion: reduce)").matches){
+    document.startViewTransition(fn);
+  } else {
+    fn();
+  }
+};
+
+/* ---- Calendar helpers ------------------------------------------------ */
+
+/* Local-date YYYYMMDD. Events are all-day, so we want the local date shown
+   on the sheet, not a UTC-shifted version of it. */
+const icsDate = d => `${d.getFullYear()}${String(d.getMonth()+1).padStart(2,"0")}${String(d.getDate()).padStart(2,"0")}`;
+
+/* Google Calendar quick-add URL. All-day, single event. */
+function googleCalendarUrl(e){
+  const d = new Date(String(e.date) + "T12:00:00");
+  if(isNaN(d)) return "";
+  const start = icsDate(d);
+  const end = icsDate(new Date(d.getTime() + 86400000));
+  const p = new URLSearchParams({
+    action: "TEMPLATE",
+    text: e.title,
+    dates: `${start}/${end}`,
+    location: e.location || "",
+    details: e.notes || "",
+  });
+  return `https://calendar.google.com/calendar/render?${p}`;
+}
+
+/* Minimal RFC 5545 all-day VEVENT. Works in Apple Calendar, Outlook, and
+   Android when opened from the download tray. Line endings must be CRLF. */
+function icsFor(e){
+  const d = new Date(String(e.date) + "T12:00:00");
+  if(isNaN(d)) return "";
+  const start = icsDate(d);
+  const end = icsDate(new Date(d.getTime() + 86400000));
+  const uid = `${e.date}-${slugify(e.title)}@alumni-directory`;
+  const stamp = new Date().toISOString().replace(/[-:]/g,"").replace(/\.\d{3}/,"");
+  const escIcs = s => String(s).replace(/([\\,;])/g,"\\$1").replace(/\n/g,"\\n");
+  return [
+    "BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Alumni Directory//EN","CALSCALE:GREGORIAN",
+    "BEGIN:VEVENT",
+    `UID:${uid}`, `DTSTAMP:${stamp}`,
+    `DTSTART;VALUE=DATE:${start}`, `DTEND;VALUE=DATE:${end}`,
+    `SUMMARY:${escIcs(e.title)}`,
+    e.location ? `LOCATION:${escIcs(e.location)}` : "",
+    e.notes ? `DESCRIPTION:${escIcs(e.notes)}` : "",
+    "END:VEVENT","END:VCALENDAR",
+  ].filter(Boolean).join("\r\n");
+}
+
+function downloadIcs(e){
+  const blob = new Blob([icsFor(e)], {type:"text/calendar;charset=utf-8"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url; a.download = `${slugify(e.title) || "event"}.ics`;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+/* Same sort used by renderEvents; the click handler needs the identical
+   ordering to resolve a [data-ics] index back to an event. */
+const sortedEvents = () => (DATA?.events || []).slice()
+  .sort((a,b) => String(a.date).localeCompare(String(b.date)));
+
+/* ---- Birthdays this month -------------------------------------------- */
+
+function birthdaysThisMonth(){
+  if(!C.options.showBirthdays || !DATA) return [];
+  const monthName = MONTHS[new Date().getMonth()];
+  return DATA.members
+    .filter(m => m.birth_month === monthName && m.birth_day)
+    .sort((a,b) => Number(a.birth_day) - Number(b.birth_day));
+}
 
 /* ==========================================================================
    2. STATE
@@ -903,7 +1005,15 @@ function render(){
   announce(list.length
     ? `${list.length} of ${DATA.members.length} members shown${scope}.`
     : "No members match the current search or filters.");
-  shell.innerHTML = spineHtml() + `<div>` + (list.length
+  const bdays = birthdaysThisMonth();
+  const bdayStrip = bdays.length
+    ? `<aside class="bdays" aria-label="Birthdays this month">
+         <span class="bdays-h">${MONTHS[new Date().getMonth()]} birthdays</span>
+         ${bdays.map(m => `<button type="button" class="bday" data-id="${esc(m.id)}">${
+           esc(nameOf(m))}<span class="bday-d">${esc(m.birth_day)}</span></button>`).join("")}
+       </aside>`
+    : "";
+  shell.innerHTML = spineHtml() + `<div>` + bdayStrip + (list.length
     ? `<p class="count">${list.length} of ${DATA.members.length} members${
         esc(scope)}${committee ? `, ${esc(committee)} committee` : ""}</p>
        <div class="grid">${list.map(plateHtml).join("")}</div>`
@@ -936,16 +1046,24 @@ function renderPages(){
 }
 
 function renderEvents(){
-  const evts = DATA.events.slice().sort((a,b) => String(a.date).localeCompare(String(b.date)));
+  const evts = sortedEvents();
   shell.innerHTML = `<div class="reader"><h2>Calendar</h2>` + (evts.length
-    ? evts.map(e => {
+    ? evts.map((e, i) => {
         const d = new Date(String(e.date) + "T12:00:00");
-        const when = isNaN(d) ? esc(e.date)
-          : `${MONTHS[d.getMonth()].slice(0,3)} ${d.getDate()}, ${d.getFullYear()}`;
+        const parseable = !isNaN(d);
+        const when = parseable
+          ? `${MONTHS[d.getMonth()].slice(0,3)} ${d.getDate()}, ${d.getFullYear()}`
+          : esc(e.date);
+        const gcal = parseable ? googleCalendarUrl(e) : "";
         return `<div class="evt"><time>${when}</time><div>
           <strong>${esc(e.title)}</strong>
           ${e.location ? `<small>${esc(e.location)}</small>` : ""}
-          ${e.notes ? `<small>${esc(e.notes)}</small>` : ""}</div></div>`;
+          ${e.notes ? `<small>${esc(e.notes)}</small>` : ""}
+          ${parseable ? `<div class="evt-actions">
+            <a class="evt-add" href="${esc(gcal)}" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+            <button class="evt-add" type="button" data-ics="${i}">Download .ics</button>
+          </div>` : ""}
+        </div></div>`;
       }).join("")
     : `<p>No events scheduled. Add rows to the Events tab.</p>`) + `</div>`;
 }
@@ -1092,7 +1210,7 @@ function selectTab(tab, moveFocus){
   });
   shell.setAttribute("aria-labelledby", tab.id);
   if(moveFocus) tab.focus();
-  render();
+  withTransition(render);
 }
 
 /* Narrow-screen overflow menu only. Above 820px the panel is display:contents
@@ -1115,12 +1233,18 @@ document.addEventListener("click", e => {
   if(t.closest("#barmenu")){ setBarmenu(!barmenuOpen(), true); return; }
   if(barmenuOpen() && !t.closest("#barmenu-panel")) setBarmenu(false);
 
+  // Handled before .plate/.bday matches, since the .ics button lives inside
+  // an event card that has no plate/bday ancestor — but the Google Calendar
+  // <a> is a plain link, so its default navigation is fine.
+  const icsBtn = t.closest("[data-ics]");
+  if(icsBtn){ downloadIcs(sortedEvents()[+icsBtn.dataset.ics]); return; }
+
   const tab = t.closest(".tab[data-view]");
   if(tab) return selectTab(tab, false);
-  if(t.closest("#back")){ openPage = null; return render(); }
+  if(t.closest("#back")){ openPage = null; return withTransition(render); }
   const pg = t.closest("[data-page]");
-  if(pg){ openPage = pg.dataset.page; render(); return window.scrollTo(0,0); }
-  if(t.closest(".spine-all")){ year = ""; decade = ""; pendingFocus = ".spine-all"; return render(); }
+  if(pg){ openPage = pg.dataset.page; withTransition(render); return window.scrollTo(0,0); }
+  if(t.closest(".spine-all")){ year = ""; decade = ""; pendingFocus = ".spine-all"; return withTransition(render); }
 
   const dec = t.closest("[data-decade]");
   if(dec){
@@ -1129,7 +1253,7 @@ document.addEventListener("click", e => {
     decade = decade === d ? "" : d;
     year = "";
     pendingFocus = `[data-decade="${d}"]`;
-    return render();
+    return withTransition(render);
   }
 
   const yr = t.closest(".year");
@@ -1139,10 +1263,11 @@ document.addEventListener("click", e => {
     // Keep the containing decade open so the list doesn't collapse underfoot.
     decade = String(Math.floor(+y/10)*10);
     pendingFocus = `[data-year="${y}"]`;
-    return render();
+    return withTransition(render);
   }
-  const plate = t.closest(".plate");
-  if(plate){ openId = plate.dataset.id; return drawDetail(); }
+  // .plate is a member card; .bday is a name in the birthday strip.
+  const member = t.closest(".plate, .bday");
+  if(member){ openId = member.dataset.id; return drawDetail(); }
   if(t.closest("#closeDetail") || t.closest("#scrim")) closeDetail();
 });
 
