@@ -151,8 +151,13 @@ button{font:inherit;cursor:pointer}
   background:var(--paper);color:var(--ink);font-size:16px;border-radius:var(--radius);
   transition:border-color .15s var(--ease),box-shadow .15s var(--ease)}
 .search:focus{border-color:var(--navy);outline:none;box-shadow:0 0 0 3px rgba(20,33,61,.12)}
-select.filter{padding:11px 12px;border:1px solid var(--line);background:var(--paper);
-  color:var(--ink);font-size:15px;border-radius:var(--radius);max-width:210px}
+/* appearance:none drops the native caret; a custom SVG caret is positioned
+   vertically centered via background-position:center so Montserrat's metrics
+   can't push it out of the padded box. */
+select.filter{padding:11px 36px 11px 12px;border:1px solid var(--line);
+  background:var(--paper) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path d='M1 1l4 4 4-4' stroke='%231E1B1B' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>") no-repeat right 12px center;
+  color:var(--ink);font-size:15px;line-height:1.2;border-radius:var(--radius);
+  max-width:210px;appearance:none;-webkit-appearance:none}
 .tabs{display:flex;gap:2px;margin-left:auto}
 .tab{padding:10px 15px;border:0;background:transparent;color:var(--ink-soft);
   font-weight:600;font-size:14px;border-bottom:var(--rule) solid transparent;
