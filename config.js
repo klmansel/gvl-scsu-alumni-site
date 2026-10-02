@@ -65,7 +65,7 @@ const CONFIG = {
      2. BRANDING
      ------------------------------------------------------------------ */
   brand: {
-    title: 'South Carolina State University National Alumni Association Greenville Chapter',
+    title: 'Greenville Chapter\nSouth Carolina State University National Alumni Association',
     // Shown in the browser tab and when the link is shared. The full name
     // above is too long for either. Falls back to title if left blank.
     shortTitle: 'SCSUNAA Greenville',
@@ -81,7 +81,7 @@ const CONFIG = {
     // Path or full URL to a logo. Leave "" to show initials instead.
     // The chapter seal. It's round on a white field, so the crest renders as a
     // white disc rather than the garnet square used for the initials fallback.
-    logoUrl: 'scsgacac_logo.jpg',
+    logoUrl: 'scsunaa-gvl-logo-d.png',
     // Shown if the logo fails to load, and on member photo placeholders.
     initials: 'SCSU',
 
