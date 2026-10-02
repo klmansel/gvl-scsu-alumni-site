@@ -74,7 +74,7 @@ site_subtitle
 founded_year        1918
 color_primary       #7A1220
 color_secondary     #14213D
-logo_url            scsgacac_logo.jpg
+logo_url            scsunaa-gvl-logo-d.png
 membership_form_url https://docs.google.com/forms/d/e/1FAIpQLSc3hhMeRCVDRa-g8WLkq-Ix-gj5fgRGoTkwDdfDlzBpFCYBIQ/viewform
 facebook_url        https://www.facebook.com/scstategreenvillealumni
 instagram_url       https://www.instagram.com/greenvillescsunaa/
