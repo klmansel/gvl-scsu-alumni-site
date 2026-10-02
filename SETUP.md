@@ -54,6 +54,10 @@ trailing space and wonders why they vanished.
 
 | `slug` | `title` | `body` | `order` | `published` |
 
+Add a Data Validation dropdown on `published` with `true` and `false`. The
+publisher treats `true` (also `yes`, `y`, `1`) as live; anything else stays off
+the site.
+
 Seed it with: Chapter Bylaws (1), Officers (2), Membership Levels (3),
 Committees (4), Scholarship (5), Fundraising Teams (6), Meetings (7),
 Chapter Photos (8), Special Recognition (9). Reorder by editing `order`.
