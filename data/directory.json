@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T15:37:58.796Z",
+  "generated_at": "2026-10-03T15:46:04.485Z",
   "settings": {
     "site_title": "South Carolina State University National Alumni Association Greenville Chapter",
     "site_subtitle": "",
@@ -38,6 +38,42 @@
       "title": "Chapter Bylaws",
       "body": "The Greenville Chapter bylaws (PDF): https://drive.google.com/file/d/FILE_ID/view",
       "order": 1
+    },
+    {
+      "slug": "officers",
+      "title": "Officers",
+      "body": "current officers, details about term length, election timing",
+      "order": 999
+    },
+    {
+      "slug": "membership",
+      "title": "Membership",
+      "body": "TBD",
+      "order": 999
+    },
+    {
+      "slug": "committees",
+      "title": "Committees",
+      "body": "Standing committees and how to join",
+      "order": 999
+    },
+    {
+      "slug": "scholarship",
+      "title": "Scholarship",
+      "body": "Who is eligible, dates, how to apply, recent winners",
+      "order": 999
+    },
+    {
+      "slug": "fundraising",
+      "title": "Fundraising",
+      "body": "TBD",
+      "order": 999
+    },
+    {
+      "slug": "meetings",
+      "title": "Meetings",
+      "body": "Day, time, place/format, cadence",
+      "order": 999
     }
   ],
   "events": []
