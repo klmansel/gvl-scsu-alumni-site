@@ -505,11 +505,11 @@ South Carolina State University National Alumni Association</h1><p id="siteSub">
       <button class="print-btn" id="print">Print directory</button>
     </div>
     <div class="tabs" aria-label="Sections">
-      <!-- Chapter is a menu, not a tab: it opens a list of pages and jumps to
+      <!-- Chapter Info is a menu, not a tab: it opens a list of pages and jumps to
            the one picked. Directory and Calendar stay as plain view switches. -->
       <div class="pagesmenu">
         <button class="tab pagesmenu-btn" id="tab-pages" type="button"
-                aria-haspopup="menu" aria-expanded="false" aria-controls="pagesmenu-panel">Chapter<span class="chev" aria-hidden="true">▾</span></button>
+                aria-haspopup="menu" aria-expanded="false" aria-controls="pagesmenu-panel">Chapter Info<span class="chev" aria-hidden="true">▾</span></button>
         <div class="pagesmenu-panel" id="pagesmenu-panel" role="menu" aria-labelledby="tab-pages" hidden></div>
       </div>
       <button class="tab" id="tab-directory" type="button" data-view="directory" aria-controls="shell" aria-current="page">Directory</button>
@@ -1127,7 +1127,7 @@ function renderPages(){
   const pages = DATA.pages.slice().sort((a,b) => (a.order||999) - (b.order||999));
   if(!pages.length){
     shell.innerHTML = `<div class="state"><h2>No chapter pages yet</h2>
-      <p>Add rows to the Pages tab and they'll appear in the Chapter menu.</p></div>`;
+      <p>Add rows to the Pages tab and they'll appear in the Chapter Info menu.</p></div>`;
     return;
   }
   // openPage might be blank on first load or point at a slug that was deleted;

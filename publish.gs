@@ -259,8 +259,15 @@ function syncPhotos(rows) {
   return remaining;
 }
 
-/** Drive's thumbnail endpoint resizes server-side, avoiding multi-MB originals. */
+/**
+ * Resized JPEG with the phone's EXIF rotation already applied. The
+ * drive.google.com/thumbnail endpoint drops that flag, so portraits
+ * publish sideways.
+ */
 function fetchThumbnail(fileId) {
+  const oriented = fetchOrientedThumb(fileId);
+  if (oriented) return oriented;
+
   const url = 'https://drive.google.com/thumbnail?id=' + fileId + '&sz=w' + CFG.PHOTO_WIDTH;
   const res = UrlFetchApp.fetch(url, {
     headers: { Authorization: 'Bearer ' + ScriptApp.getOAuthToken() },
@@ -273,6 +280,32 @@ function fetchThumbnail(fileId) {
   }
   // Fallback: original file, unresized. Usually 3-5MB from a phone.
   return encodeCapped(DriveApp.getFileById(fileId).getBlob(), fileId);
+}
+
+/**
+ * Phone cameras store the pixels sideways and set an EXIF orientation flag
+ * that viewers are supposed to apply. thumbnailLink is a JPEG with that
+ * rotation already baked in. drive.google.com/thumbnail drops the flag, so
+ * the committed file displays sideways.
+ */
+function fetchOrientedThumb(fileId) {
+  const meta = UrlFetchApp.fetch(
+    'https://www.googleapis.com/drive/v3/files/' + encodeURIComponent(fileId) + '?fields=thumbnailLink',
+    {
+      headers: { Authorization: 'Bearer ' + ScriptApp.getOAuthToken() },
+      muteHttpExceptions: true,
+    }
+  );
+  if (meta.getResponseCode() !== 200) return null;
+
+  const link = JSON.parse(meta.getContentText()).thumbnailLink;
+  if (!link) return null;
+
+  // Drive hands back a 220px link. Asking for a wider size keeps the rotation.
+  const sized = String(link).replace(/=s\d+/, '=w' + CFG.PHOTO_WIDTH);
+  const img = UrlFetchApp.fetch(sized, { followRedirects: true, muteHttpExceptions: true });
+  if (img.getResponseCode() !== 200) return null;
+  return encodeCapped(img.getBlob(), fileId);
 }
 
 /**
