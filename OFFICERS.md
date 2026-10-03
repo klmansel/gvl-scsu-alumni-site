@@ -105,7 +105,7 @@ The first time you use the menu, Google will ask for permission to run it. Click
 
 ## Chapter pages
 
-The `Pages` tab controls the Chapter section of the website. Each row is one page.
+The `Pages` tab is the Chapter Info menu on the website. Each row is one page.
 
 | Column | What to enter |
 |---|---|
